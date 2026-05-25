@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Contact — Daniel Sanchez</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#111110;--off:#F8F9FA;--g100:#EBEBEA;--g300:#C8C8C4;
+  --g500:#8C8C88;--g700:#3D3D3A;--white:#fff;
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans:'DM Sans',Helvetica,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--off);color:var(--black);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:flex-start;justify-content:space-between;padding:22px 40px;background:rgba(248,249,250,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--g100)}
+.nav-name{font-family:var(--serif);font-size:25px;color:var(--black);text-decoration:none;letter-spacing:-.02em}
+.nav-col{display:flex;flex-direction:column;gap:2px;margin-left:44px}
+.nav-col a,.nav-loc{font-size:13px;font-weight:400;color:var(--g700);text-decoration:none;transition:color .2s}
+.nav-col a:hover{color:var(--black)}
+.nav-loc{color:var(--g500);margin-left:44px;align-self:flex-start}
+.nav-right{display:flex;align-items:flex-start}
+.nav-back{font-size:13px;color:var(--g500);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.nav-back:hover{color:var(--black)}
+
+/* CASE HERO */
+.hero-img{margin-top:65px;width:100%;height:68vh;min-height:400px;object-fit:cover;object-position:center 45%;display:block}
+.hero-dark{margin-top:65px;background:var(--black);padding:72px 40px 64px;display:grid;grid-template-columns:1fr 320px;gap:56px;align-items:end}
+.hero-text{padding:44px 40px 52px;border-bottom:1px solid var(--g100);display:grid;grid-template-columns:1fr 300px;gap:56px;align-items:start}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g500);margin-bottom:14px}
+.eyebrow-light{color:var(--g500)}
+.case-title{font-family:var(--serif);font-size:clamp(34px,4.5vw,54px);letter-spacing:-.02em;line-height:1.05;margin-bottom:18px}
+.case-title-light{color:var(--white)}
+.case-sub{font-size:18px;font-weight:300;color:var(--g700);line-height:1.75}
+.case-sub-light{color:var(--g300)}
+.meta-stack{display:flex;flex-direction:column;gap:18px;padding-top:2px}
+.meta-item label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g500);display:block;margin-bottom:4px}
+.meta-item span{font-size:13px;color:var(--g700)}
+.meta-item-light span{color:var(--g300)}
+
+/* BODY */
+.body{max-width:940px;margin:0 auto;padding:68px 40px}
+.block{margin-bottom:72px}
+.blabel{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g500);margin-bottom:14px}
+.btitle{font-family:var(--serif);font-size:27px;letter-spacing:-.01em;margin-bottom:18px}
+.btext{font-size:16px;font-weight:300;color:var(--g700);line-height:1.8}
+.btext p{margin-bottom:14px}
+.btext p:last-child{margin-bottom:0}
+
+/* PROCESS STEPS */
+.steps{margin-top:4px}
+.step{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid var(--g100)}
+.step:first-child{border-top:1px solid var(--g100)}
+.sname{font-size:12px;font-weight:500;color:var(--g500);padding-top:1px}
+.sdesc{font-size:15px;font-weight:300;color:var(--g700);line-height:1.65}
+
+/* IMAGES */
+.img-full{width:100%;object-fit:cover;display:block;margin:28px 0}
+.img-full.bordered{border:1px solid var(--g100)}
+.img-pair{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin:28px 0}
+.img-pair img{width:100%;object-fit:cover;display:block}
+.img-pair img.bordered{border:1px solid var(--g100)}
+.img-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin:28px 0}
+.img-3 img{width:100%;object-fit:cover;display:block}
+.img-sidebar{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start;margin:28px 0}
+.img-sidebar img{width:100%;display:block}
+.caption{font-size:11px;color:var(--g500);margin-top:6px;font-style:italic;line-height:1.5}
+
+/* CARDS */
+.cards2{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:22px}
+.cards3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-top:22px}
+.cards4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:2px;margin-top:22px}
+.card{background:var(--white);padding:26px 22px}
+.card h4{font-size:13px;font-weight:500;color:var(--black);margin-bottom:8px}
+.card p,.card-p{font-size:14px;font-weight:300;color:var(--g700);line-height:1.6}
+.card-dark{background:var(--black)}
+.card-dark h4{color:var(--white)}
+.card-dark p{color:var(--g300)}
+.stat-n{font-family:var(--serif);font-size:44px;letter-spacing:-.03em;margin-bottom:8px}
+.insight-n{font-family:var(--serif);font-size:30px;color:var(--g300);margin-bottom:10px}
+.oc-n{font-family:var(--serif);font-size:36px;letter-spacing:-.02em;margin-bottom:8px}
+
+/* QUOTE */
+.quote{border-left:2px solid var(--black);padding:26px 32px;margin:40px 0;background:var(--white)}
+.quote-t{font-family:var(--serif);font-size:19px;color:var(--black);line-height:1.5;margin-bottom:14px;font-style:italic}
+.quote-a{font-size:12px;color:var(--g500)}
+
+/* AWARD */
+.award{display:inline-flex;align-items:center;gap:10px;background:var(--black);color:var(--white);padding:11px 18px;margin-top:22px}
+.award .yr{font-family:var(--serif);font-size:17px}
+.award .lbl{font-size:12px;font-weight:500;letter-spacing:.04em}
+
+/* HR */
+hr.div{border:none;border-top:1px solid var(--g100);margin:0 40px}
+
+/* CASE NAV */
+.case-nav{border-top:1px solid var(--g100);padding:36px 40px;display:flex;justify-content:space-between;align-items:center}
+.case-nav a{font-size:13px;color:var(--g500);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.case-nav a:hover{color:var(--black)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-content:space-between;align-items:center}
+.foot-l{font-size:12px;color:var(--g500)}
+.foot-r{font-size:13px;color:var(--g700)}
+.foot-r a{color:var(--black);font-weight:500;text-decoration:none;border-bottom:1px solid var(--g300);padding-bottom:1px;transition:opacity .2s}
+.foot-r a:hover{opacity:.5}
+.jds{width:34px;height:34px;background:var(--black);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:var(--white);letter-spacing:.02em;flex-shrink:0}
+
+/* INDEX SPECIFICS */
+.hero-home{padding:152px 40px 76px;max-width:880px}
+.hero-ey{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g500);margin-bottom:22px}
+.hero-h{font-family:var(--serif);font-size:clamp(30px,4.8vw,52px);line-height:1.1;letter-spacing:-.02em;margin-bottom:28px}
+.hero-h em{font-style:italic;color:var(--g500)}
+.hero-s{font-size:17px;font-weight:300;color:var(--g700);max-width:540px;line-height:1.75;margin-bottom:36px}
+.cta{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--black);text-decoration:none;border-bottom:1px solid var(--black);padding-bottom:2px;transition:opacity .2s}
+.cta:hover{opacity:.5}
+.cta:hover .arr{transform:translateX(4px)}
+.arr{transition:transform .2s}
+
+/* PROJECT GRID */
+.projects{padding:60px 40px}
+.slabel{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g500);margin-bottom:36px;display:flex;justify-content:space-between;align-items:center}
+.slabel span{font-size:11px;color:var(--g300)}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.pcard{background:var(--white);text-decoration:none;color:inherit;display:flex;flex-direction:column;overflow:hidden;transition:background .2s}
+.pcard:hover{background:var(--g100)}
+.pcard-img{width:100%;aspect-ratio:4/3;overflow:hidden;position:relative}
+.pcard-img img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease;filter:grayscale(15%)}
+.pcard:hover .pcard-img img{transform:scale(1.04)}
+.pcard-body{padding:18px 22px 22px;flex:1;display:flex;flex-direction:column}
+.pmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.pyear{font-size:11px;color:var(--g500)}
+.ptags{display:flex;gap:4px}
+.tag{font-size:10px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;padding:3px 7px;border:1px solid var(--g300);color:var(--g500);border-radius:2px}
+.ptitle{font-family:var(--serif);font-size:19px;letter-spacing:-.01em;line-height:1.2;margin-bottom:7px}
+.pdesc{font-size:14px;font-weight:300;color:var(--g700);line-height:1.6;flex:1}
+.plink{margin-top:18px;font-size:12px;font-weight:500;color:var(--g500);display:flex;align-items:center;gap:5px;transition:color .2s}
+.pcard:hover .plink{color:var(--black)}
+
+/* ABOUT PAGE */
+.about-sec{padding:60px 40px;display:grid;grid-template-columns:160px 1fr 1fr;gap:56px;align-items:start}
+.about-lbl{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g500);padding-top:3px}
+.about-bio p{font-size:16px;font-weight:300;color:var(--g700);line-height:1.8;margin-bottom:14px}
+.about-bio p:last-child{margin-bottom:0}
+.skills-lbl{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g500);margin-bottom:14px}
+.skills-list{list-style:none}
+.skills-list li{font-size:13px;font-weight:300;color:var(--g700);padding:9px 0;border-bottom:1px solid var(--g100)}
+.exp-sec{padding:60px 40px;display:grid;grid-template-columns:160px 1fr;gap:56px}
+.exp-row{display:grid;grid-template-columns:1fr auto;gap:20px;padding:13px 0;border-bottom:1px solid var(--g100)}
+.exp-row:first-child{border-top:1px solid var(--g100)}
+.exp-co{font-size:14px;font-weight:500;color:var(--black)}
+.exp-role{font-size:13px;font-weight:300;color:var(--g500);margin-top:2px}
+.exp-date{font-size:12px;color:var(--g500);white-space:nowrap;text-align:right;align-self:center}
+.photo-wrap{width:100%;max-width:320px;aspect-ratio:3/4;overflow:hidden;margin-bottom:24px}
+.photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:top center;filter:grayscale(100%)}
+
+/* CONTACT PAGE */
+.contact-sec{padding:60px 40px;display:grid;grid-template-columns:280px 1fr;gap:80px;align-items:start}
+.contact-lbl{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g500);margin-bottom:10px}
+.contact-email{font-size:13px;color:var(--black);font-weight:400}
+.form-title{font-family:var(--serif);font-size:26px;letter-spacing:-.01em;margin-bottom:8px}
+.form-sub{font-size:15px;font-weight:300;color:var(--g700);margin-bottom:32px;line-height:1.6}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:12px;font-weight:500;color:var(--g700);margin-bottom:7px;letter-spacing:.02em}
+.field input,.field textarea{width:100%;background:var(--g100);border:none;padding:12px 14px;font-family:var(--sans);font-size:14px;font-weight:300;color:var(--black);outline:none;transition:background .2s;border-bottom:1px solid transparent}
+.field input:focus,.field textarea:focus{background:#EEECEA;border-bottom:1px solid var(--black)}
+.field textarea{resize:vertical;min-height:120px}
+.submit-btn{width:100%;background:var(--black);color:var(--white);border:none;padding:14px;font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;letter-spacing:.04em;transition:opacity .2s}
+.submit-btn:hover{opacity:.8}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:18px 22px}
+  .hero-home,.projects,.about-sec,.exp-sec,.contact-sec{padding-left:22px;padding-right:22px}
+  hr.div{margin:0 22px}
+  .pgrid{grid-template-columns:1fr}
+  .about-sec{grid-template-columns:1fr;gap:28px}
+  .exp-sec{grid-template-columns:1fr;gap:20px}
+  .contact-sec{grid-template-columns:1fr;gap:32px}
+  .hero-dark,.hero-text{grid-template-columns:1fr;gap:28px;padding:48px 22px}
+  .body{padding:48px 22px}
+  .cards2,.cards3,.cards4{grid-template-columns:1fr}
+  .img-pair,.img-3{grid-template-columns:1fr}
+  .img-sidebar{grid-template-columns:1fr}
+  .step{grid-template-columns:1fr;gap:5px}
+  .case-nav{padding:28px 22px;flex-direction:column;gap:14px;align-items:flex-start}
+  footer{padding:22px;flex-direction:column;gap:14px;align-items:flex-start}
+  .nav-right{display:none}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-name">Daniel Sanchez</a>
+  <div class="nav-right">
+    <div class="nav-col"><a href="index.html">Projects</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+    <div class="nav-col"><a href="https://linkedin.com" target="_blank">LinkedIn</a></div>
+    <span class="nav-loc">Seattle</span>
+  </div>
+</nav>
+
+<div style="padding-top:65px">
+  <div style="padding:64px 40px 52px;border-bottom:1px solid var(--g100)">
+    <p class="hero-ey" style="font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g500);margin-bottom:14px">Contact</p>
+    <h1 style="font-family:var(--serif);font-size:clamp(32px,4vw,48px);letter-spacing:-.02em;line-height:1.08">Let's work together.</h1>
+  </div>
+</div>
+
+<section class="contact-sec">
+  <div>
+    <p class="contact-lbl">Email directly at:</p>
+    <p class="contact-email"><a href="mailto:jdannydesign@gmail.com" style="color:var(--black);text-decoration:none;border-bottom:1px solid var(--g300);padding-bottom:1px">jdannydesign@gmail.com</a></p>
+    <div style="margin-top:40px">
+      <p class="contact-lbl" style="margin-bottom:8px">Based in</p>
+      <p style="font-size:13px;color:var(--g700)">Seattle, Washington</p>
+    </div>
+    <div style="margin-top:32px">
+      <p class="contact-lbl" style="margin-bottom:8px">Connect</p>
+      <p style="font-size:13px"><a href="https://linkedin.com" target="_blank" style="color:var(--black);text-decoration:none;border-bottom:1px solid var(--g300);padding-bottom:1px">LinkedIn →</a></p>
+    </div>
+  </div>
+  <div>
+    <h2 class="form-title">Get in touch</h2>
+    <div class="field"><label>Your name:</label><input type="text" placeholder="" autocomplete="name"/></div>
+    <div class="field"><label>Your email:</label><input type="email" placeholder="" autocomplete="email"/></div>
+    <div class="field"><label>Your message:</label><textarea placeholder="Enter the message..."></textarea></div>
+    <button class="submit-btn" onclick="this.textContent='Message sent ✓';this.style.background='#3D3D3A'">Submit</button>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-l"><div style="margin-bottom:4px">Daniel Sanchez, MS | Designer ©2025</div><div>All rights reserved.</div></div>
+  <div class="foot-r">Interested to work with me?&nbsp;<a href="mailto:jdannydesign@gmail.com">jdannydesign@gmail.com</a></div>
+  <div class="jds" style="background:none;border-radius:0;width:44px;height:44px;padding:0"><img src="JDSorangetypelogo.jpg" alt="JDS Logo" style="width:100%;height:100%;object-fit:contain;border-radius:50%"/></div>
+</footer>
+</body>
+</html>

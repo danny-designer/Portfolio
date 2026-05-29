@@ -220,10 +220,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:fle
 .skills-list li{font-size:13px;font-weight:300;color:var(--g700);padding:10px 0;border-bottom:1px solid var(--g100)}
 .skills-list li:first-child{border-top:1px solid var(--g100)}
 
-/* TESTIMONIALS */
+/* TESTIMONIALS CAROUSEL */
 .testimonials{padding:80px 40px 88px;border-top:1px solid var(--g100)}
-.testimonials .slabel{margin-bottom:52px}
-.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.testimonials .slabel{margin-bottom:0}
+.t-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px}
+.t-nav{display:flex;align-items:center;gap:8px}
+.t-btn{
+  width:36px;height:36px;
+  border:1px solid var(--g300);
+  background:transparent;
+  border-radius:50%;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s, border-color .2s;
+  flex-shrink:0;
+}
+.t-btn:hover{background:var(--black);border-color:var(--black)}
+.t-btn:hover svg{stroke:#fff}
+.t-btn svg{width:14px;height:14px;stroke:var(--black);stroke-width:1.8;fill:none;transition:stroke .2s}
+.t-track-wrap{overflow:hidden;position:relative}
+.tgrid{
+  display:flex;
+  gap:2px;
+  transition:transform .5s cubic-bezier(.25,.46,.45,.94);
+  will-change:transform;
+}
 .tcard{
   background:var(--white);
   padding:40px 36px 36px;
@@ -232,6 +253,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:fle
   position:relative;
   overflow:hidden;
   transition:background .25s ease;
+  flex:0 0 calc(33.333% - 2px);
+  min-width:calc(33.333% - 2px);
 }
 .tcard::before{
   content:'';
@@ -271,6 +294,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:fle
   color:var(--g500);
   line-height:1.5;
 }
+.t-counter{font-size:12px;font-weight:400;color:var(--g500);letter-spacing:.04em;white-space:nowrap}
 
 /* FOOTER */
 footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-content:space-between;align-items:center}
@@ -287,7 +311,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   .pgrid{grid-template-columns:1fr}
   .pcard{aspect-ratio:4/3}
   .ptitle{font-size:18px}
-  .tgrid{grid-template-columns:1fr}
+  .tcard{flex:0 0 calc(100% - 2px);min-width:calc(100% - 2px)}
   .testimonials{padding:52px 22px 64px}
   footer{padding:22px;flex-direction:column;gap:14px;align-items:flex-start}
   .nav-right{display:none}
@@ -313,7 +337,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 <section class="hero-wrap">
   <canvas id="wave-canvas"></canvas>
   <div class="hero-content">
-    <p class="hero-ey">UX Research &amp; Product Strategy</p>
+    <p class="hero-ey">UX &amp; Product Strategy</p>
     <h1 class="hero-h">Designing with purpose,<br>building with <em>clarity.</em></h1>
     <p class="hero-s">Seattle-based UX Researcher and Product Strategist exploring how design and technology shape the way we interact and create. Bridging the gap between user behavior and product decisions.</p>
     <a href="#work" class="cta">View my work <span class="arr">→</span></a>
@@ -404,45 +428,60 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 
 
 <section class="testimonials">
-  <div class="slabel">
-    What People Say
-    <span>Testimonials</span>
+  <div class="t-header">
+    <div class="slabel" style="margin-bottom:0">
+      What People Say
+      <span>Testimonials</span>
+    </div>
+    <div class="t-nav">
+      <button class="t-btn" id="t-prev" aria-label="Previous">
+        <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg>
+      </button>
+      <span class="t-counter" id="t-counter">1 / 4</span>
+      <button class="t-btn" id="t-next" aria-label="Next">
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
   </div>
-  <div class="tgrid" style="grid-template-columns:repeat(2,1fr)">
 
-    <div class="tcard">
-      <p class="tquote">Daniel played a pivotal role in our web overhaul…by translating complex user behaviors into actionable design improvements, he directly contributed to a significant optimization of our sales funnel. He has a unique talent for explaining the "why" behind design choices, ensuring that the entire team is aligned with the needs of the customer.</p>
-      <div class="tattrib">
-        <p class="tattrib-name">Ryan Van Splinter</p>
-        <p class="tattrib-role">Director of Marketing,<br>Westland Distillery</p>
+  <div class="t-track-wrap">
+    <div class="tgrid" id="t-track">
+
+      <div class="tcard">
+        <p class="tquote">Daniel played a pivotal role in our web overhaul…by translating complex user behaviors into actionable design improvements, he directly contributed to a significant optimization of our sales funnel. He has a unique talent for explaining the "why" behind design choices, ensuring that the entire team is aligned with the needs of the customer.</p>
+        <div class="tattrib">
+          <p class="tattrib-name">Ryan Van Splinter</p>
+          <p class="tattrib-role">Director of Marketing,<br>Westland Distillery</p>
+        </div>
       </div>
-    </div>
 
-    <div class="tcard">
-      <p class="tquote">Daniel's craftsmanship conveys his keen awareness of subtlety and nuance. He's not afraid to experiment or try new things, but neither is he willing to settle for anything less than excellence as a final result.</p>
-      <div class="tattrib">
-        <p class="tattrib-name">Jared W.</p>
-        <p class="tattrib-role">Design Manager, Edward Jones</p>
+      <div class="tcard">
+        <p class="tquote">Daniel's craftsmanship conveys his keen awareness of subtlety and nuance. He's not afraid to experiment or try new things, but neither is he willing to settle for anything less than excellence as a final result.</p>
+        <div class="tattrib">
+          <p class="tattrib-name">Jared W.</p>
+          <p class="tattrib-role">Design Manager, Edward Jones</p>
+        </div>
       </div>
-    </div>
 
-    <div class="tcard">
-      <p class="tquote">Throughout a project marked by frequent client changes… Daniel provided refined functionality and design components for development while meeting tight timelines. Daniel has proven he is an excellent collaborator under pressure.</p>
-      <div class="tattrib">
-        <p class="tattrib-name">Emily G.</p>
-        <p class="tattrib-role">PM, BW Events Tech</p>
+      <div class="tcard">
+        <p class="tquote">Throughout a project marked by frequent client changes… Daniel provided refined functionality and design components for development while meeting tight timelines. Daniel has proven he is an excellent collaborator under pressure.</p>
+        <div class="tattrib">
+          <p class="tattrib-name">Emily G.</p>
+          <p class="tattrib-role">PM, BW Events Tech</p>
+        </div>
       </div>
-    </div>
 
-    <div class="tcard">
-      <p class="tquote">Daniel does not let small hinderances get in the way of accomplishing any tasks he sets his mind to, and he's an excellent person to have on any team. He is a person of taste, curiosity, and determination, he is very professional and polished in all of his different areas of work.</p>
-      <div class="tattrib">
-        <p class="tattrib-name">Hannah Nelson</p>
-        <p class="tattrib-role">Associate Brand Manager,<br>Westland Distillery</p>
+      <div class="tcard">
+        <p class="tquote">Daniel does not let small hinderances get in the way of accomplishing any tasks he sets his mind to, and he's an excellent person to have on any team. He is a person of taste, curiosity, and determination, he is very professional and polished in all of his different areas of work.</p>
+        <div class="tattrib">
+          <p class="tattrib-name">Hannah Nelson</p>
+          <p class="tattrib-role">Associate Brand Manager,<br>Westland Distillery</p>
+        </div>
       </div>
-    </div>
 
+    </div>
   </div>
+
 </section>
 
 <footer>
@@ -507,11 +546,67 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 </script>
 
 <script>
+/* Testimonial carousel */
+(function(){
+  const track     = document.getElementById('t-track');
+  const counterEl = document.getElementById('t-counter');
+  const prevBtn   = document.getElementById('t-prev');
+  const nextBtn   = document.getElementById('t-next');
+  const cards     = Array.from(track.querySelectorAll('.tcard'));
+
+  /* Show 3 cards on desktop, 1 on mobile */
+  function perView(){ return window.innerWidth < 700 ? 1 : 3; }
+
+  let current = 0;
+  const total  = cards.length;
+
+  function goTo(idx){
+    const steps = total - perView() + 1;
+    current = Math.max(0, Math.min(idx, steps - 1));
+    const cardW = cards[0].getBoundingClientRect().width + 2; /* +gap */
+    track.style.transform = `translateX(-${current * cardW}px)`;
+    /* Update counter */
+    counterEl.textContent = (current + 1) + ' / ' + steps;
+    /* Dim buttons at limits */
+    prevBtn.style.opacity = current === 0 ? '.3' : '1';
+    nextBtn.style.opacity = current >= steps - 1 ? '.3' : '1';
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  /* Touch swipe (one finger) */
+  let startX = 0;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend',   e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if(Math.abs(diff) > 50) goTo(diff > 0 ? current + 1 : current - 1);
+  });
+
+  /* Trackpad / two-finger horizontal scroll */
+  let wheelTimer = null;
+  track.closest('.t-track-wrap').addEventListener('wheel', e => {
+    /* Only intercept horizontal scroll (two-finger swipe on trackpad) */
+    if(Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => {
+      goTo(e.deltaX > 0 ? current + 1 : current - 1);
+    }, 50);
+  }, {passive:false});
+
+  /* Recalc on resize */
+  window.addEventListener('resize', () => goTo(current));
+
+  goTo(0);
+})();
+</script>
+
+<script>
 /* 3D tilt effect */
 (function(){
   const cards = document.querySelectorAll('[data-tilt]');
-  const MAX = 8; // max tilt degrees
-
+  const MAX = 8;
   cards.forEach(card => {
     card.addEventListener('mousemove', e => {
       const r = card.getBoundingClientRect();

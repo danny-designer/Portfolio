@@ -8,44 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  /* ANALOG SECTION STYLING */
-.analog-frame {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.analog-img-wrapper {
-  width: 100%;
-  aspect-ratio: 1/1; /* Forces a clean, elegant square layout—perfect for medium format */
-  background: var(--g100);
-  overflow: hidden;
-  border-radius: 4px;
-}
-.analog-img-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(10%);
-  transition: filter .4s ease;
-}
-.analog-frame:hover .analog-img-wrapper img {
-  filter: grayscale(0%); /* Subtle saturation return on hover */
-}
-.analog-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 4px;
-}
-.analog-caption {
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--g700);
-}
-.analog-year {
-  font-size: 12px;
-  color: var(--g500);
-}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --black:#111110;--off:#F8F9FA;--g100:#EBEBEA;--g300:#C8C8C4;
@@ -341,6 +303,21 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 .foot-r a{color:var(--black);font-weight:500;text-decoration:none;border-bottom:1px solid var(--g300);padding-bottom:1px;transition:opacity .2s}
 .foot-r a:hover{opacity:.5}
 
+/* ANALOG / FILM PHOTOGRAPHY */
+.analog-section{padding:64px 40px 80px;border-top:1px solid var(--g100);}
+.analog-header{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:40px;}
+.analog-header-left{flex:1;max-width:560px;}
+.analog-intro{font-size:14px;font-weight:300;color:var(--g700);line-height:1.75;margin-top:14px;max-width:480px;}
+.analog-cta{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;letter-spacing:.04em;color:var(--g500);text-decoration:none;border-bottom:1px solid var(--g300);padding-bottom:2px;transition:color .2s,border-color .2s;white-space:nowrap;align-self:flex-start;margin-top:6px;}
+.analog-cta:hover{color:var(--black);border-color:var(--black);}
+.analog-cta:hover .arr{transform:translateX(4px);}
+.analog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.analog-film{display:flex;flex-direction:column;gap:9px;}
+.analog-img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:var(--g100);border:1px solid var(--g300);transition:border-color .4s ease,filter .45s ease,transform .4s ease;filter:grayscale(25%) brightness(.93);}
+.analog-img:hover{border-color:var(--g500);filter:grayscale(0%) brightness(1);transform:scale(1.015);}
+.analog-film-wrap{overflow:hidden;}
+.analog-caption{font-size:11px;font-weight:400;color:var(--g500);line-height:1.4;letter-spacing:.02em;}
+
 /* RESPONSIVE */
 @media(max-width:900px){
   nav{padding:18px 22px}
@@ -354,6 +331,9 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   footer{padding:22px;flex-direction:column;gap:14px;align-items:flex-start}
   .nav-right{display:none}
   .scroll-cue{right:22px}
+  .analog-section{padding:52px 22px 64px}
+  .analog-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .analog-header{flex-direction:column;gap:0}
 }
 </style>
 </head>
@@ -363,10 +343,10 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   <a href="index.html" class="nav-name">Daniel Sanchez</a>
   <div class="nav-right">
     <div class="nav-col">
-  <a href="#work">Projects</a>
-  <a href="about.html">About</a>
-  <a href="#analog" style="color: var(--g500);">Analog</a> <a href="contact.html">Contact</a>
-</div>
+      <a href="index.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="analog.html" style="color:var(--g500);margin-top:4px;">Analog</a>
     </div>
     <div class="nav-col"><a href="https://linkedin.com" target="_blank">LinkedIn</a></div>
     <span class="nav-loc">Seattle</span>
@@ -498,7 +478,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
         <p class="tquote">Daniel's craftsmanship conveys his keen awareness of subtlety and nuance. He's not afraid to experiment or try new things, but neither is he willing to settle for anything less than excellence as a final result.</p>
         <div class="tattrib">
           <p class="tattrib-name">Jared W.</p>
-          <p class="tattrib-role">Senior Experience Strategist, Edward Jones</p>
+          <p class="tattrib-role">Design Manager, Edward Jones</p>
         </div>
       </div>
 
@@ -511,7 +491,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
       </div>
 
       <div class="tcard">
-        <p class="tquote">Daniel does not let small hinderances get in the way of accomplishing any tasks he sets his mind to, he's an excellent person to have on any team. He is a person of taste, curiosity, and determination, he is very professional and polished in all of his different areas of work.</p>
+        <p class="tquote">Daniel does not let small hinderances get in the way of accomplishing any tasks he sets his mind to, and he's an excellent person to have on any team. He is a person of taste, curiosity, and determination, he is very professional and polished in all of his different areas of work.</p>
         <div class="tattrib">
           <p class="tattrib-name">Hannah Nelson</p>
           <p class="tattrib-role">Associate Brand Manager,<br>Westland Distillery</p>
@@ -522,53 +502,42 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   </div>
 
 </section>
-  
-<section class="projects" id="analog" style="border-top: 1px solid var(--g100); padding-top: 80px;">
-  <div class="slabel">
-    Analog Observations 
-    <span>Curated Medium Format</span>
-  </div>
-  
-  <div style="max-width: 720px; margin-bottom: 48px;">
-    <p style="font-size: clamp(15px, 1.5vw, 17px); font-weight: 300; color: var(--g700); line-height: 1.8;">
-      I carry a mechanical camera for the exact same reason I practice UX research: it demands deep situational awareness. With a fixed roll of film, there is no room for passive shooting. Every exposure requires patient observation, an understanding of environmental constraints, and a sharp eye for how people naturally navigate and interact with the spaces around them.
-    </p>
-  </div>
 
-  <div class="pgrid">
-    
-    <div class="analog-frame">
-      <div class="analog-img-wrapper">
-        <img src="99909590-1010.jpg" alt="Architecture">
+<!-- ANALOG / FILM PHOTOGRAPHY -->
+<section class="analog-section">
+  <div class="analog-header">
+    <div class="analog-header-left">
+      <div class="slabel" style="margin-bottom:0;">
+        Analog Observations
+        <span>Film Photography</span>
       </div>
-      <div class="analog-meta">
-        <span class="analog-caption">Urban Geometry — Porto</span>
-        <span class="analog-year">'25</span>
-      </div>
+      <p class="analog-intro">I carry a mechanical camera for the same reason I practice UX research — it demands absolute intentionality. With a fixed roll of film, every frame requires patient observation and an eye for how people navigate the spaces around them.</p>
     </div>
+  </div>
 
-    <div class="analog-frame">
-      <div class="analog-img-wrapper">
-        <img src="99911179-84269.jpg" alt="Urban">
+  <div class="analog-grid">
+    <div class="analog-film">
+      <div class="analog-film-wrap">
+        <img src="99909590-1010.JPG" alt="Man at wine bar, afternoon light" class="analog-img">
       </div>
-      <div class="analog-meta">
-        <span class="analog-caption">Human Scale & Shadows</span>
-        <span class="analog-year">'25</span>
-      </div>
+      <p class="analog-caption">New York &mdash; <em>afternoon light, Jarr Bar</em></p>
     </div>
-
-    <div class="analog-frame">
-      <div class="analog-img-wrapper">
-        <img src="99911635-97118 2.jpg" alt="New York">
+    <div class="analog-film">
+      <div class="analog-film-wrap">
+        <img src="99911179-84269.JPG" alt="Under the elevated tracks, Manhattan" class="analog-img">
       </div>
-      <div class="analog-meta">
-        <span class="analog-caption">Documentary Studies</span>
-        <span class="analog-year">'24</span>
+      <p class="analog-caption">New York &mdash; <em>under the tracks</em></p>
+    </div>
+    <div class="analog-film">
+      <div class="analog-film-wrap">
+        <img src="99911635-97118_2.JPG" alt="Green azulejo building, Porto" class="analog-img">
       </div>
+      <p class="analog-caption">Porto &mdash; <em>azulejo corner</em></p>
     </div>
 
   </div>
 </section>
+
 <footer>
   <div class="foot-l"><div style="margin-bottom:4px">Daniel Sanchez, MS | Designer ©2025</div><div>All rights reserved.</div></div>
   <div class="foot-r">Interested to work with me?&nbsp;<a href="mailto:jdannydesign@gmail.com">jdannydesign@gmail.com</a></div>

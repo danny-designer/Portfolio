@@ -8,6 +8,44 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+  /* ANALOG SECTION STYLING */
+.analog-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.analog-img-wrapper {
+  width: 100%;
+  aspect-ratio: 1/1; /* Forces a clean, elegant square layout—perfect for medium format */
+  background: var(--g100);
+  overflow: hidden;
+  border-radius: 4px;
+}
+.analog-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(10%);
+  transition: filter .4s ease;
+}
+.analog-frame:hover .analog-img-wrapper img {
+  filter: grayscale(0%); /* Subtle saturation return on hover */
+}
+.analog-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px;
+}
+.analog-caption {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--g700);
+}
+.analog-year {
+  font-size: 12px;
+  color: var(--g500);
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --black:#111110;--off:#F8F9FA;--g100:#EBEBEA;--g300:#C8C8C4;
@@ -325,9 +363,10 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   <a href="index.html" class="nav-name">Daniel Sanchez</a>
   <div class="nav-right">
     <div class="nav-col">
-      <a href="index.html">Projects</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+  <a href="#work">Projects</a>
+  <a href="about.html">About</a>
+  <a href="#analog" style="color: var(--g500);">Analog</a> <a href="contact.html">Contact</a>
+</div>
     </div>
     <div class="nav-col"><a href="https://linkedin.com" target="_blank">LinkedIn</a></div>
     <span class="nav-loc">Seattle</span>
@@ -483,7 +522,53 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   </div>
 
 </section>
+  
+<section class="projects" id="analog" style="border-top: 1px solid var(--g100); padding-top: 80px;">
+  <div class="slabel">
+    Analog Observations 
+    <span>Curated Medium Format</span>
+  </div>
+  
+  <div style="max-width: 720px; margin-bottom: 48px;">
+    <p style="font-size: clamp(15px, 1.5vw, 17px); font-weight: 300; color: var(--g700); line-height: 1.8;">
+      I carry a mechanical camera for the exact same reason I practice UX research: it demands deep situational awareness. With a fixed roll of film, there is no room for passive shooting. Every exposure requires patient observation, an understanding of environmental constraints, and a sharp eye for how people naturally navigate and interact with the spaces around them.
+    </p>
+  </div>
 
+  <div class="pgrid">
+    
+    <div class="analog-frame">
+      <div class="analog-img-wrapper">
+        <img src="path-to-your-scan-1.jpg" alt="Description of photo">
+      </div>
+      <div class="analog-meta">
+        <span class="analog-caption">Urban Geometry — Tokyo</span>
+        <span class="analog-year">'25</span>
+      </div>
+    </div>
+
+    <div class="analog-frame">
+      <div class="analog-img-wrapper">
+        <img src="path-to-your-scan-2.jpg" alt="Description of photo">
+      </div>
+      <div class="analog-meta">
+        <span class="analog-caption">Human Scale & Shadows</span>
+        <span class="analog-year">'25</span>
+      </div>
+    </div>
+
+    <div class="analog-frame">
+      <div class="analog-img-wrapper">
+        <img src="path-to-your-scan-3.jpg" alt="Description of photo">
+      </div>
+      <div class="analog-meta">
+        <span class="analog-caption">Documentary Studies</span>
+        <span class="analog-year">'24</span>
+      </div>
+    </div>
+
+  </div>
+</section>
 <footer>
   <div class="foot-l"><div style="margin-bottom:4px">Daniel Sanchez, MS | Designer ©2025</div><div>All rights reserved.</div></div>
   <div class="foot-r">Interested to work with me?&nbsp;<a href="mailto:jdannydesign@gmail.com">jdannydesign@gmail.com</a></div>

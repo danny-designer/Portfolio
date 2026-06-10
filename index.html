@@ -14,6 +14,7 @@
 :root{
   --black:#111110;--off:#F8F9FA;--g100:#EBEBEA;--g300:#C8C8C4;
   --g500:#8C8C88;--g700:#3D3D3A;--white:#fff;
+  --accent:#D45A1A;
   --serif:'DM Serif Display',Georgia,serif;
   --sans:'DM Sans',Helvetica,sans-serif;
 }
@@ -30,21 +31,105 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:fle
 .nav-right{display:flex;align-items:flex-start}
 
 /* HERO */
-.hero-wrap{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:#F8F9FA}
-#wave-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.hero-content{position:relative;z-index:2;padding:152px 40px 76px;max-width:880px}
-.hero-ey{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g500);margin-bottom:22px;opacity:0;animation:fadeUp .8s ease forwards .15s}
-.hero-h{font-family:var(--serif);font-size:clamp(30px,4.8vw,52px);line-height:1.1;letter-spacing:-.02em;color:var(--black);margin-bottom:28px;opacity:0;animation:fadeUp .9s ease forwards .32s}
-.hero-h em{font-style:italic;color:#2d7a5a}
-.hero-s{font-size:17px;font-weight:300;color:var(--g700);max-width:540px;line-height:1.75;margin-bottom:36px;opacity:0;animation:fadeUp .9s ease forwards .48s}
-.cta{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--black);text-decoration:none;border-bottom:1px solid var(--black);padding-bottom:2px;transition:opacity .2s;opacity:0;animation:fadeUp .8s ease forwards .62s}
-.cta:hover{opacity:.45}
+.hero-wrap{
+  position:relative;min-height:100vh;display:flex;flex-direction:column;
+  justify-content:flex-end;overflow:hidden;
+  background:#F8F9FA;
+}
+#wave-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.7}
+.hero-content{position:relative;z-index:2;padding:160px 56px 88px;max-width:1100px;width:100%}
+
+/* top meta row */
+.hero-meta{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:64px;
+  opacity:0;animation:fadeIn .7s ease forwards .1s;
+}
+.hero-meta-left{
+  display:flex;align-items:center;gap:10px;
+}
+.hero-pulse{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 0 0 rgba(212,90,26,.5);
+  animation:pulse 2.4s ease infinite 1.4s;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(212,90,26,.5)}
+  60%{box-shadow:0 0 0 8px rgba(212,90,26,0)}
+  100%{box-shadow:0 0 0 0 rgba(212,90,26,0)}
+}
+.hero-meta-label{
+  font-size:14px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--g700);
+}
+.hero-meta-right{
+  font-size:11px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--g500);
+}
+
+/* large display headline */
+.hero-h{
+  font-family:var(--serif);
+  font-size:clamp(44px,7vw,88px);
+  line-height:.98;
+  letter-spacing:-.03em;
+  color:var(--black);
+  margin-bottom:0;
+  opacity:0;animation:fadeUp 1s ease forwards .28s;
+}
+.hero-h em{
+  font-style:italic;
+  color:var(--accent);
+}
+
+/* divider + sub row */
+.hero-divider{
+  width:100%;height:1px;
+  background:var(--g100);
+  margin:40px 0 36px;
+  opacity:0;animation:fadeIn .6s ease forwards .55s;
+}
+.hero-bottom{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:40px;
+  opacity:0;animation:fadeUp .8s ease forwards .65s;
+}
+.hero-s{
+  font-size:16px;font-weight:300;
+  color:var(--g700);
+  max-width:460px;line-height:1.75;
+}
+
+/* bold CTA button */
+.cta{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:13px;font-weight:500;letter-spacing:.04em;
+  color:#0E0F0D;
+  background:var(--accent);
+  text-decoration:none;
+  padding:14px 28px;
+  border-radius:2px;
+  white-space:nowrap;
+  flex-shrink:0;
+  transition:background .2s, transform .15s;
+  opacity:0;animation:fadeUp .8s ease forwards .8s;
+}
+.cta:hover{background:#bf4f17;transform:translateY(-2px)}
 .cta:hover .arr{transform:translateX(4px)}
-.arr{transition:transform .2s}
-.scroll-cue{position:absolute;bottom:28px;right:40px;z-index:3;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:fadeIn 1s ease forwards 1.1s}
+.arr{display:inline-block;transition:transform .2s}
+
+.scroll-cue{
+  position:absolute;bottom:32px;right:56px;z-index:3;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  opacity:0;animation:fadeIn 1s ease forwards 1.2s;
+}
 .scroll-cue span{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g500)}
 .scroll-line{width:1px;height:40px;background:var(--g300);position:relative;overflow:hidden}
-.scroll-line::after{content:'';position:absolute;top:-100%;left:0;right:0;height:100%;background:var(--g500);animation:scrollDrop 1.8s ease infinite 1.2s}
+.scroll-line::after{
+  content:'';position:absolute;top:-100%;left:0;right:0;height:100%;
+  background:var(--g500);
+  animation:scrollDrop 1.8s ease infinite 1.3s;
+}
 @keyframes scrollDrop{0%{top:-100%}50%{top:100%}51%{top:-100%}100%{top:-100%}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -323,7 +408,10 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 /* RESPONSIVE */
 @media(max-width:900px){
   nav{padding:18px 22px}
-  .hero-content{padding:120px 22px 60px}
+  .hero-content{padding:120px 24px 72px}
+  .hero-meta{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:48px}
+  .hero-bottom{flex-direction:column;align-items:flex-start;gap:28px}
+  .hero-s{max-width:100%}
   .projects{padding:52px 22px 64px}
   .pgrid{grid-template-columns:1fr}
   .pcard{aspect-ratio:4/3}
@@ -358,10 +446,19 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 <section class="hero-wrap">
   <canvas id="wave-canvas"></canvas>
   <div class="hero-content">
-    <p class="hero-ey">UX &amp; Experience Strategist</p>
+    <div class="hero-meta">
+      <div class="hero-meta-left">
+        <div class="hero-pulse"></div>
+        <span class="hero-meta-label">UX &amp; Experience Strategist</span>
+      </div>
+      <span class="hero-meta-right">Seattle, WA</span>
+    </div>
     <h1 class="hero-h">Designing with purpose,<br>building with clarity.</h1>
-    <p class="hero-s">Seattle-based UX Researcher and Product Strategist exploring how design and technology shape the way we interact and create. Bridging the gap between user behavior and product decisions.</p>
-    <a href="#work" class="cta">View my work <span class="arr">→</span></a>
+    <div class="hero-divider"></div>
+    <div class="hero-bottom">
+      <p class="hero-s">UX Researcher and Product Strategist exploring how design and technology shape the way we interact and create. Bridging the gap between user behavior and product decisions.</p>
+      <a href="#work" class="cta">View my work <span class="arr">→</span></a>
+    </div>
   </div>
   <div class="scroll-cue" aria-hidden="true">
     <div class="scroll-line"></div>
@@ -418,7 +515,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
       <div class="pcard-tag"><span class="tag">UX/Service Design</span></div>
       <div class="pcard-body">
         <p class="ptitle">NYC Office of the Mayor</p>
-        <p class="pdesc">Partnership with NYC Office of Nightlife to amplify and rebrand programs. Delivered to C-Suite in a six-week sprint with 89% participant approval.</p>
+        <p class="pdesc">Partnership with NYC Office of Nightlife to amplify and rebrand programs — delivered to C-Suite in a six-week sprint with 89% participant approval.</p>
         <div class="plink">View case study <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
       </div>
       <div class="pcard-num">03</div>
@@ -438,11 +535,12 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   <div class="skills-col">
     <p class="skills-lbl">Skills</p>
     <ul class="skills-list">
-      <li>UX Research</li>
-      <li>UI Design</li>
-      <li>Product Management</li>
+      <li>UX/UI</li>
+      <li>Research</li>
+      <li>Systems Thinking</li>
       <li>Service Design</li>
       <li>Cross-Functional Collaboration</li>
+      <li>Creative Direction</li>
     </ul>
   </div>
 </section>
@@ -513,14 +611,14 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
       <span>Film Photography</span>
     </div>
   </div>
-  <p class="analog-intro">I carry a mechanical camera for the exact same reason I practice UX research: it demands deep situational awareness. With a fixed roll of 12 or 36 frames, there is no room for passive shooting. Every exposure requires patient observation, an understanding of environmental constraints, and a sharp eye for how people naturally navigate and interact with the spaces around them.</p>
+  <p class="analog-intro">I carry a mechanical camera for the exact same reason I practice UX and Design: it demands deep situational awareness. With a fixed roll of 12 or 36 frames, there is no room for passive shooting. Every exposure requires patient observation, an understanding of environmental constraints, and a sharp eye for how people naturally navigate and interact with the spaces around them.</p>
 
   <div class="analog-grid" style="margin-top:32px;">
     <div class="analog-film">
       <div class="analog-film-wrap">
         <img src="99909590-1010.JPG" alt="Man at wine bar, afternoon light" class="analog-img">
       </div>
-      <p class="analog-caption">Seattle &mdash; <em>afternoon light,</em></p>
+      <p class="analog-caption">Seattle &mdash; <em>afternoon light, Jarr Bar</em></p>
     </div>
     <div class="analog-film">
       <div class="analog-film-wrap">

@@ -176,6 +176,16 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 .exp-dark-wrap .exp-role{color:var(--g300)}
 .exp-dark-wrap .exp-date{color:var(--g300)}
 
+/* ANALOG / FILM PHOTOGRAPHY */
+.analog-section{padding:64px 40px 80px}
+.analog-intro{font-size:14px;font-weight:300;color:var(--g700);line-height:1.75;max-width:480px}
+.analog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.analog-film{display:flex;flex-direction:column;gap:9px}
+.analog-img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:var(--g100);border:1px solid var(--g300);transition:border-color .4s ease,filter .45s ease,transform .4s ease;filter:grayscale(25%) brightness(.93)}
+.analog-img:hover{border-color:var(--g500);filter:grayscale(0%) brightness(1);transform:scale(1.015)}
+.analog-film-wrap{overflow:hidden}
+.analog-caption{font-size:11px;font-weight:400;color:var(--g500);line-height:1.4;letter-spacing:.02em}
+
 /* CONTACT PAGE */
 .contact-sec{padding:60px 40px;display:grid;grid-template-columns:280px 1fr;gap:80px;align-items:start}
 .contact-lbl{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g500);margin-bottom:10px}
@@ -198,6 +208,8 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   .pgrid{grid-template-columns:1fr}
   .about-sec{grid-template-columns:1fr;gap:28px}
   .exp-sec{grid-template-columns:1fr;gap:20px}
+  .analog-section{padding:52px 22px 64px}
+  .analog-grid{grid-template-columns:repeat(2,1fr);gap:12px}
   .contact-sec{grid-template-columns:1fr;gap:32px}
   .hero-dark,.hero-text{grid-template-columns:1fr;gap:28px;padding:48px 22px}
   .hero-split{grid-template-columns:1fr!important;gap:28px!important;padding:48px 22px 36px!important}
@@ -242,6 +254,38 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
     <p>I've done this across government, global consumer brands, and Fortune 500 tech companies, and each one taught me something different about how organizations listen, or struggle to. At the NYC Mayor's Office of Nightlife, that meant understanding communities most research overlooks. With global spirits brands, it meant navigating cultural nuance across markets. With enterprise tech clients, it meant turning messy human behavior into clear product direction.</p>
     <p>Research that stops at the report doesn't interest me. I've built UX research practices from scratch inside organizations that never had one, and taught teams to keep asking the right questions after I'm gone. I've run cross-cultural studies, pushed through hard stakeholder conversations, and caught gaps in a client's understanding before they turned into expensive mistakes.</p>
     <p>I bring mixed-methods fluency, but what I actually bring is curiosity about people and an intentional insistence that their voices show up in what gets built.</p>
+  </div>
+</section>
+
+<div class="slabel" style="padding:60px 40px 0;margin-bottom:0;border-top:1px solid var(--g100)">Analog Observations<span>Film Photography</span></div>
+<section class="analog-section" id="analog" style="border-top:none;padding-top:24px">
+  <p class="analog-intro">I carry a mechanical camera for the exact same reason I practice UX research: it demands deep situational awareness. With a fixed roll of 12 or 36 frames, there is no room for passive shooting. Every exposure requires patient observation, an understanding of environmental constraints, and a sharp eye for how people naturally navigate and interact with the spaces around them.</p>
+
+  <div class="analog-grid" style="margin-top:32px;">
+    <div class="analog-film">
+      <div class="analog-film-wrap">
+        <img src="99909590-1010.JPG" alt="Man at wine bar, afternoon light" class="analog-img">
+      </div>
+      <p class="analog-caption">Seattle &mdash; <em>afternoon light</em></p>
+    </div>
+    <div class="analog-film">
+      <div class="analog-film-wrap">
+        <img src="99911179-84269.JPG" alt="Under the elevated tracks, Manhattan" class="analog-img">
+      </div>
+      <p class="analog-caption">New York &mdash; <em>under the tracks</em></p>
+    </div>
+    <div class="analog-film">
+      <div class="analog-film-wrap">
+        <img src="99911635-97118 2.JPG" alt="Green azulejo building, Porto" class="analog-img">
+      </div>
+      <p class="analog-caption">Porto &mdash; <em>azulejo corner</em></p>
+    </div>
+    <div class="analog-film">
+      <div class="analog-film-wrap">
+      </div>
+      <p class="analog-caption">Amsterdam &mdash; <em>Blonde Amsterdam</em></p>
+    </div>
+
   </div>
 </section>
 

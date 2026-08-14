@@ -22,13 +22,13 @@ html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--off);color:var(--black);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:flex-start;justify-content:space-between;padding:22px 40px;background:rgba(248,249,250,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--g100)}
-.nav-name{font-family:var(--serif);font-size:25px;color:var(--black);text-decoration:none;letter-spacing:-.02em}
-.nav-col{display:flex;flex-direction:column;gap:2px;margin-left:44px}
-.nav-col a,.nav-loc{font-size:13px;font-weight:400;color:var(--g700);text-decoration:none;transition:color .2s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:22px 40px;background:rgba(248,249,250,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--g100)}
+.nav-name{font-family:var(--serif);font-size:22px;color:var(--black);text-decoration:none;letter-spacing:-.02em}
+.nav-col{display:flex;flex-direction:row;align-items:center;gap:32px;margin-left:44px}
+.nav-col a,.nav-loc{font-size:15px;font-weight:400;color:var(--g700);text-decoration:none;transition:color .2s}
 .nav-col a:hover{color:var(--black)}
 .nav-loc{color:var(--g500);margin-left:44px;align-self:flex-start}
-.nav-right{display:flex;align-items:flex-start}
+.nav-right{display:flex;align-items:center}
 .nav-back{font-size:13px;color:var(--g500);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
 .nav-back:hover{color:var(--black)}
 

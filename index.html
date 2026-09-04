@@ -205,20 +205,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-/* HERO INDEX RAIL — sits in the hero-content's own left gutter */
-.hero-content{position:relative}
-.hero-rail{
-  position:absolute;left:0;top:4px;bottom:4px;width:32px;z-index:3;
-  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
-  opacity:0;animation:fadeIn .6s ease forwards .2s;
-}
-.hero-rail-num{
-  font-family:var(--sans);font-size:12px;letter-spacing:.03em;
-  font-variant-numeric:tabular-nums;color:var(--g500);transition:color .5s ease;
-}
-.hero-rail-num.current{color:var(--g700)}
-.hero-rail-line{width:1px;flex:1;margin:14px 0;background:rgba(10,10,8,.14)}
-
 /* HERO → PROJECTS CURTAIN — rail count flips gold and the curtain lifts once, together */
 .wipe-wrap{position:relative}
 .curtain-panel{
@@ -232,7 +218,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   transition:top 1.05s cubic-bezier(.65,0,.15,1);
 }
 .wipe-wrap.revealed .curtain-panel::before{top:0}
-.wipe-wrap.revealed .hero-rail-num.current{color:#FABE3A;font-weight:500}
 .projects{
   position:relative;z-index:5;opacity:0;transform:translateY(18px);
   transition:opacity .7s ease .3s,transform .7s ease .3s;
@@ -243,7 +228,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   .projects{transition:none;opacity:1;transform:none}
 }
 @media(max-width:900px){
-  .hero-rail{display:none}
   .curtain-panel{height:8vh;min-height:56px}
 }
 
@@ -567,11 +551,6 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 <section class="hero-wrap">
   <canvas id="wave-canvas"></canvas>
   <div class="hero-content">
-    <div class="hero-rail" aria-hidden="true">
-      <span class="hero-rail-num current" id="railCurrent">000</span>
-      <span class="hero-rail-line"></span>
-      <span class="hero-rail-num">001</span>
-    </div>
     <div class="hero-masthead-rule"></div>
     <div class="hero-meta">
       <div class="hero-meta-left">

@@ -205,6 +205,46 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
+/* HERO INDEX RAIL — sits in the hero-content's own left gutter */
+.hero-content{position:relative}
+.hero-rail{
+  position:absolute;left:0;top:4px;bottom:4px;width:32px;z-index:3;
+  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+  opacity:0;animation:fadeIn .6s ease forwards .2s;
+}
+.hero-rail-num{
+  font-family:var(--sans);font-size:12px;letter-spacing:.03em;
+  font-variant-numeric:tabular-nums;color:var(--g500);transition:color .5s ease;
+}
+.hero-rail-num.current{color:var(--g700)}
+.hero-rail-line{width:1px;flex:1;margin:14px 0;background:rgba(10,10,8,.14)}
+
+/* HERO → PROJECTS CURTAIN — rail count flips gold and the curtain lifts once, together */
+.wipe-wrap{position:relative}
+.curtain-panel{
+  position:relative;height:14vh;min-height:80px;margin-top:-14vh;
+  background:var(--black);border-radius:32px 32px 0 0;z-index:4;
+  clip-path:inset(0 0 100% 0);
+  box-shadow:0 -24px 50px rgba(0,0,0,.22);
+  transition:clip-path 1.05s cubic-bezier(.65,0,.15,1);
+  pointer-events:none;
+}
+.wipe-wrap.revealed .curtain-panel{clip-path:inset(0 0 0% 0)}
+.wipe-wrap.revealed .hero-rail-num.current{color:#FABE3A;font-weight:500}
+.projects{
+  position:relative;z-index:5;opacity:0;transform:translateY(18px);
+  transition:opacity .7s ease .3s,transform .7s ease .3s;
+}
+.wipe-wrap.revealed .projects{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){
+  .curtain-panel{transition:none}
+  .projects{transition:none;opacity:1;transform:none}
+}
+@media(max-width:900px){
+  .hero-rail{display:none}
+  .curtain-panel{height:8vh;margin-top:-8vh;border-radius:20px 20px 0 0}
+}
+
 /* PROJECTS */
 .projects{padding:60px 40px 80px;scroll-margin-top:65px}
 .slabel{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g500);margin-bottom:48px;display:flex;justify-content:space-between;align-items:center}
@@ -521,9 +561,15 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   </div>
 </nav>
 
+<div class="wipe-wrap" id="heroWipeWrap">
 <section class="hero-wrap">
   <canvas id="wave-canvas"></canvas>
   <div class="hero-content">
+    <div class="hero-rail" aria-hidden="true">
+      <span class="hero-rail-num current" id="railCurrent">000</span>
+      <span class="hero-rail-line"></span>
+      <span class="hero-rail-num">001</span>
+    </div>
     <div class="hero-masthead-rule"></div>
     <div class="hero-meta">
       <div class="hero-meta-left">
@@ -550,6 +596,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
     <span>Scroll</span>
   </div>
 </section>
+<div class="curtain-panel" id="heroCurtain"></div>
 
 <section class="projects" id="work">
   <div class="slabel">
@@ -609,6 +656,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   </div>
   </div>
 </section>
+</div>
 
 <section class="pull-quote">
   <div class="pull-quote-inner">
@@ -672,7 +720,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
         <p class="tquote">Daniel's craftsmanship conveys his keen awareness of subtlety and nuance. He's not afraid to experiment or try new things, but neither is he willing to settle for anything less than excellence as a final result.</p>
         <div class="tattrib">
           <p class="tattrib-name">Jared W.</p>
-          <p class="tattrib-role">Sr. Experience Strategist, Edward Jones</p>
+          <p class="tattrib-role">Design Manager, Edward Jones</p>
         </div>
       </div>
 
@@ -685,7 +733,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
       </div>
 
       <div class="tcard">
-        <p class="tquote">Daniel does not let small hinderances get in the way of accomplishing any tasks he sets his mind to, he's an excellent person to have on any team. He is a person of taste, curiosity, and determination, he is very professional and polished in all of his different areas of work.</p>
+        <p class="tquote">Daniel does not let small hinderances get in the way of accomplishing any tasks he sets his mind to, and he's an excellent person to have on any team. He is a person of taste, curiosity, and determination, he is very professional and polished in all of his different areas of work.</p>
         <div class="tattrib">
           <p class="tattrib-name">Hannah Nelson</p>
           <p class="tattrib-role">Associate Brand Manager,<br>Westland Distillery</p>
@@ -814,6 +862,23 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   window.addEventListener('resize', () => goTo(current));
 
   goTo(0);
+})();
+</script>
+
+<script>
+/* Hero → Projects curtain reveal (rail count + curtain lift fire together, once) */
+(function(){
+  const wrap = document.getElementById('heroWipeWrap');
+  const trigger = document.getElementById('heroCurtain');
+  if(!wrap || !trigger) return;
+  const reveal = () => wrap.classList.add('revealed');
+  if(!('IntersectionObserver' in window)){ reveal(); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){ reveal(); io.disconnect(); }
+    });
+  }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+  io.observe(trigger);
 })();
 </script>
 

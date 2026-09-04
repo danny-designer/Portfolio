@@ -205,7 +205,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-/* HERO → PROJECTS CURTAIN — rail count flips gold and the curtain lifts once, together */
+/* SCROLL CURTAIN — a black panel lifts once as the next section scrolls into view */
 .wipe-wrap{position:relative}
 .curtain-panel{
   position:relative;height:14vh;min-height:90px;overflow:hidden;
@@ -218,17 +218,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   transition:top 1.05s cubic-bezier(.65,0,.15,1);
 }
 .wipe-wrap.revealed .curtain-panel::before{top:0}
-.projects{
+.curtain-reveal{
   position:relative;z-index:5;opacity:0;transform:translateY(18px);
   transition:opacity .7s ease .3s,transform .7s ease .3s;
 }
-.wipe-wrap.revealed .projects{opacity:1;transform:translateY(0)}
+.wipe-wrap.revealed .curtain-reveal{opacity:1;transform:translateY(0)}
 @media(prefers-reduced-motion:reduce){
   .curtain-panel::before{transition:none}
-  .projects{transition:none;opacity:1;transform:none}
+  .curtain-reveal{transition:none;opacity:1;transform:none}
 }
 @media(max-width:900px){
   .curtain-panel{height:8vh;min-height:56px}
+}
+.curtain-panel.no-bg::before{
+  background:transparent;
+  box-shadow:none;
 }
 
 /* PROJECTS */
@@ -577,9 +581,9 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
     <span>Scroll</span>
   </div>
 </section>
-<div class="curtain-panel" id="heroCurtain"></div>
+<div class="curtain-panel no-bg" id="heroCurtain"></div>
 
-<section class="projects" id="work">
+<section class="projects curtain-reveal" id="work">
   <div class="slabel">
     Featured Projects
     <span>2020 – 2025</span>
@@ -639,7 +643,9 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 </section>
 </div>
 
-<section class="pull-quote">
+<div class="wipe-wrap" id="quoteWipeWrap">
+<div class="curtain-panel" id="quoteCurtain"></div>
+<section class="pull-quote curtain-reveal">
   <div class="pull-quote-inner">
     <blockquote>“Design is about making choices. Sometimes the best solution is the simplest one.”</blockquote>
     <div class="pull-quote-attrib">
@@ -647,6 +653,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
     </div>
   </div>
 </section>
+</div>
 
 <!-- ABOUT STRIP -->
 <section class="about-strip">
@@ -847,19 +854,22 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 </script>
 
 <script>
-/* Hero → Projects curtain reveal (rail count + curtain lift fire together, once) */
+/* Section curtains — each .wipe-wrap's black panel lifts once as its curtain-panel nears view */
 (function(){
-  const wrap = document.getElementById('heroWipeWrap');
-  const trigger = document.getElementById('heroCurtain');
-  if(!wrap || !trigger) return;
-  const reveal = () => wrap.classList.add('revealed');
-  if(!('IntersectionObserver' in window)){ reveal(); return; }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){ reveal(); io.disconnect(); }
-    });
-  }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
-  io.observe(trigger);
+  const wraps = document.querySelectorAll('.wipe-wrap');
+  if(!wraps.length) return;
+  wraps.forEach(wrap => {
+    const trigger = wrap.querySelector('.curtain-panel');
+    if(!trigger) return;
+    const reveal = () => wrap.classList.add('revealed');
+    if(!('IntersectionObserver' in window)){ reveal(); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){ reveal(); io.disconnect(); }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+    io.observe(trigger);
+  });
 })();
 </script>
 

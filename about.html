@@ -271,6 +271,32 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 @media(prefers-reduced-motion:reduce){
   .img-reveal{transition:none;opacity:1;transform:none}
 }
+
+/* SCROLL CURTAIN — a black panel lifts once as the next section scrolls into view */
+.wipe-wrap{position:relative}
+.curtain-panel{
+  position:relative;height:14vh;min-height:90px;overflow:hidden;
+  z-index:4;pointer-events:none;
+}
+.curtain-panel::before{
+  content:'';position:absolute;left:0;right:0;bottom:0;top:100%;
+  background:var(--black);border-radius:32px 32px 0 0;
+  box-shadow:0 -24px 50px rgba(0,0,0,.22);
+  transition:top 1.05s cubic-bezier(.65,0,.15,1);
+}
+.wipe-wrap.revealed .curtain-panel::before{top:0}
+.curtain-reveal{
+  position:relative;z-index:5;opacity:0;transform:translateY(18px);
+  transition:opacity .7s ease .3s,transform .7s ease .3s;
+}
+.wipe-wrap.revealed .curtain-reveal{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){
+  .curtain-panel::before{transition:none}
+  .curtain-reveal{transition:none;opacity:1;transform:none}
+}
+@media(max-width:900px){
+  .curtain-panel{height:8vh;min-height:56px}
+}
 </style>
 </head>
 <body>
@@ -338,7 +364,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
       </div>
       <div class="analog-item wide">
         <img src="Scan77732.JPG" alt="Blonde on bicycle, Amsterdam" class="analog-img shrink-reveal">
-        <p class="analog-cap">Passing blonde Amsterdam</p>
+        <p class="analog-cap">Passing Blond Amsterdam</p>
         <p class="analog-loc">Amsterdam</p>
       </div>
     </div>
@@ -356,6 +382,9 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   </div>
 </section>
 
+<div class="wipe-wrap" id="competenciesWipeWrap">
+<div class="curtain-panel" id="competenciesCurtain"></div>
+<div class="curtain-reveal exp-dark-wrap">
 <div class="slabel" style="padding:60px 40px 0;margin-bottom:0;border-top:1px solid var(--g100)">Core Competencies</div>
 <section class="exp-sec">
   <div class="about-lbl"></div>
@@ -372,9 +401,10 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
     <div class="exp-row"><div class="exp-co">Bilingual English and Spanish</div></div>
   </div>
 </section>
+</div>
+</div>
 
-<div class="exp-dark-wrap">
-<div class="slabel">Experience</div>
+<div class="slabel" style="padding:60px 40px 0;margin-bottom:0;border-top:1px solid var(--g100)">Experience</div>
 <section class="exp-sec">
   <div class="about-lbl">2012–2025</div>
   <div>
@@ -385,7 +415,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
     <div class="exp-row"><div><div class="exp-co">DS Leatherworks</div><div class="exp-role">Founder</div></div><div class="exp-date">2012–2016</div></div>
   </div>
 </section>
-</div>
+
 
 <footer>
   <div class="foot-l"><div style="margin-bottom:4px">Daniel Sanchez, MS | Designer ©2025</div><div>All rights reserved.</div></div>
@@ -424,6 +454,26 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
     }, { threshold: 0.2 });
     shrinkTargets.forEach(el => shrinkIO.observe(el));
   }
+})();
+</script>
+
+<script>
+/* Section curtains — each .wipe-wrap's black panel lifts once as its curtain-panel nears view */
+(function(){
+  const wraps = document.querySelectorAll('.wipe-wrap');
+  if(!wraps.length) return;
+  wraps.forEach(wrap => {
+    const trigger = wrap.querySelector('.curtain-panel');
+    if(!trigger) return;
+    const reveal = () => wrap.classList.add('revealed');
+    if(!('IntersectionObserver' in window)){ reveal(); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){ reveal(); io.disconnect(); }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+    io.observe(trigger);
+  });
 })();
 </script>
 </body>

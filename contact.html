@@ -23,7 +23,20 @@ body{font-family:var(--sans);background:var(--off);color:var(--black);font-size:
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:22px 40px;background:rgba(248,249,250,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--g100)}
-.nav-name{font-family:var(--serif);font-size:22px;color:var(--black);text-decoration:none;letter-spacing:-.02em}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--black)}
+.nav-logo-mark{height:26px;width:auto;display:block;flex-shrink:0}
+.nav-logo-name{
+  display:inline-flex;
+  font-family:var(--serif);font-size:20px;letter-spacing:-.01em;color:var(--black);
+}
+.nav-logo-name .letter-mask{display:inline-block;overflow:hidden;line-height:1.2}
+.nav-logo-name .letter{
+  display:inline-block;
+  transform:translateY(130%);
+  transition:transform .55s cubic-bezier(.16,1,.3,1);
+  will-change:transform;
+}
+.nav-logo:hover .letter,.nav-logo:focus-visible .letter{transform:translateY(0)}
 .nav-col{display:flex;flex-direction:row;align-items:center;gap:32px;margin-left:44px}
 .nav-col a,.nav-loc{font-size:15px;font-weight:400;color:var(--g700);text-decoration:none;transition:color .2s}
 .nav-col a:hover{color:var(--black)}
@@ -200,7 +213,10 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 </head>
 <body>
 <nav>
-  <a href="index.html" class="nav-name">Daniel Sanchez</a>
+  <a href="index.html" class="nav-logo" aria-label="Daniel Sanchez — Home">
+    <img src="JDSorangetypelogo.jpg" alt="JDS" class="nav-logo-mark">
+    <span class="nav-logo-name">Daniel Sanchez</span>
+  </a>
   <div class="nav-right">
     <div class="nav-col"><a href="index.html">Projects</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
   </div>
@@ -235,5 +251,24 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   <div class="foot-r">Interested to work with me?&nbsp;<a href="mailto:jdannydesign@gmail.com">jdannydesign@gmail.com</a></div>
   <div class="jds" style="background:none;border-radius:0;width:44px;height:44px;padding:0"><img src="JDSorangetypelogo.jpg" alt="JDS Logo" style="width:100%;height:100%;object-fit:contain;border-radius:50%"/></div>
 </footer>
+<script>
+/* Nav logo — split name into letters that pop up randomly on hover */
+(function(){
+  const el = document.querySelector('.nav-logo-name');
+  if(!el) return;
+  const text = el.textContent.trim();
+  el.textContent = '';
+  text.split('').forEach(ch => {
+    const mask = document.createElement('span');
+    mask.className = 'letter-mask';
+    const letter = document.createElement('span');
+    letter.className = 'letter';
+    letter.textContent = ch === ' ' ? '\u00A0' : ch;
+    letter.style.transitionDelay = Math.round(Math.random() * 260) + 'ms';
+    mask.appendChild(letter);
+    el.appendChild(mask);
+  });
+})();
+</script>
 </body>
 </html>

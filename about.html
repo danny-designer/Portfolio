@@ -179,7 +179,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 .photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:top center;filter:grayscale(100%)}
 
 /* EXPERIENCE — dark block */
-.exp-dark-wrap{background:var(--black);border-top:1px solid var(--g100)}
+.exp-dark-wrap{background:var(--black)}
 .exp-dark-wrap .slabel{padding:60px 40px 0;margin-bottom:0;color:var(--g300)}
 .exp-dark-wrap .slabel span{color:var(--g500)}
 .exp-dark-wrap .exp-sec{padding:60px 40px}
@@ -304,12 +304,26 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   transition:opacity .7s ease .3s,transform .7s ease .3s;
 }
 .wipe-wrap.revealed .curtain-reveal{opacity:1;transform:translateY(0)}
+
+/* FADE VEIL — light dissolves into dark, no hard edge (used between Education and Core Competencies) */
+.fade-veil{
+  height:60vh;min-height:280px;
+  margin-top:-22vh;
+  background:linear-gradient(to bottom, transparent 0%, var(--black) 55%);
+  opacity:0;
+  transition:opacity 1.8s ease;
+}
+.fade-veil::before{content:none}
+.wipe-wrap.revealed .fade-veil{opacity:1}
+
 @media(prefers-reduced-motion:reduce){
   .curtain-panel::before{transition:none}
   .curtain-reveal{transition:none;opacity:1;transform:none}
+  .fade-veil{transition:none}
 }
 @media(max-width:900px){
   .curtain-panel{height:8vh;min-height:56px}
+  .fade-veil{height:34vh;min-height:160px;margin-top:-10vh}
 }
 </style>
 </head>
@@ -359,7 +373,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
     <div class="analog-num">04</div>
   </div>
   <div class="analog-main">
-    <p class="analog-quote">I carry a mechanical camera for the exact same reason I practice UX and Design: it demands deep situational awareness. With a fixed roll of 12 or 36 frames, there is no room for passive shooting. Every exposure requires patient observation, an understanding of environmental constraints, and a sharp eye for how people naturally navigate and interact with the spaces around them.</p>
+    <p class="analog-quote">"I carry a mechanical camera for the exact same reason I practice UX and Design: it demands deep situational awareness. With a fixed roll of 12 or 36 frames, there is no room for passive shooting. Every exposure requires patient observation, an understanding of environmental constraints, and a sharp eye for how people naturally navigate and interact with the spaces around them."</p>
     <div class="analog-strip">
       <div class="analog-item lead">
         <img src="99909590-1010.JPG" alt="Man at wine bar, afternoon light" class="analog-img shrink-reveal">
@@ -401,9 +415,9 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 </section>
 
 <div class="wipe-wrap" id="competenciesWipeWrap">
-<div class="curtain-panel" id="competenciesCurtain"></div>
+<div class="curtain-panel fade-veil" id="competenciesCurtain"></div>
 <div class="curtain-reveal exp-dark-wrap">
-<div class="slabel" style="padding:60px 40px 0;margin-bottom:0;border-top:1px solid var(--g100)">Core Competencies</div>
+<div class="slabel" style="padding:60px 40px 0;margin-bottom:0">Core Competencies</div>
 <section class="exp-sec">
   <div class="about-lbl"></div>
   <div>
@@ -476,18 +490,17 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 </script>
 
 <script>
-/* Section curtains — each .wipe-wrap's black panel lifts once as its curtain-panel nears view */
+/* Section fade — the veil darkens in and lightens back out as it scrolls in/out of view */
 (function(){
   const wraps = document.querySelectorAll('.wipe-wrap');
   if(!wraps.length) return;
   wraps.forEach(wrap => {
     const trigger = wrap.querySelector('.curtain-panel');
     if(!trigger) return;
-    const reveal = () => wrap.classList.add('revealed');
-    if(!('IntersectionObserver' in window)){ reveal(); return; }
+    if(!('IntersectionObserver' in window)){ wrap.classList.add('revealed'); return; }
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if(entry.isIntersecting){ reveal(); io.disconnect(); }
+        wrap.classList.toggle('revealed', entry.isIntersecting);
       });
     }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
     io.observe(trigger);

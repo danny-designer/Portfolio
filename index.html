@@ -43,6 +43,28 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .nav-loc{color:var(--g500);margin-left:44px;align-self:flex-start}
 .nav-right{display:flex;align-items:center}
 
+.nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;background:none;border:none;cursor:pointer;padding:0;z-index:110}
+.nav-toggle span{display:block;width:100%;height:1.5px;background:var(--black);transition:transform .3s ease,opacity .3s ease}
+.nav-toggle.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+.nav-dropdown{
+  position:absolute;top:100%;left:0;right:0;
+  background:rgba(248,249,250,.98);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--g100);
+  display:flex;flex-direction:column;
+  padding:0 22px;
+  max-height:0;overflow:hidden;
+  transition:max-height .4s cubic-bezier(.16,1,.3,1);
+}
+.nav-dropdown a{
+  font-size:15px;font-weight:400;color:var(--g700);text-decoration:none;
+  padding:14px 0;border-bottom:1px solid var(--g100);
+}
+.nav-dropdown a:last-child{border-bottom:none}
+.nav-dropdown.open{max-height:280px;padding:8px 22px 18px}
+
 /* HERO — Editorial */
 .hero-wrap{
   position:relative;min-height:100vh;display:flex;flex-direction:column;
@@ -496,6 +518,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   .testimonials{padding:52px 22px 64px}
   footer{padding:22px;flex-direction:column;gap:14px;align-items:flex-start}
   .nav-right{display:none}
+  .nav-toggle{display:flex}
   .scroll-cue{right:22px}
 }
 </style>
@@ -513,6 +536,15 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
     </div>
+  </div>
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-dropdown">
+    <a href="index.html">Projects</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
   </div>
 </nav>
 
@@ -602,7 +634,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   <div class="pull-quote-inner">
     <blockquote>“Design is about making choices. Sometimes the best solution is the simplest one.”</blockquote>
     <div class="pull-quote-attrib">
-      <span class="pull-quote-name">-Emily Oberman  |  Pentagram</span>
+      <span class="pull-quote-name">Emily Oberman</span>
     </div>
   </div>
 </section>
@@ -693,6 +725,27 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   <div class="foot-r">Interested to work with me?&nbsp;<a href="mailto:jdannydesign@gmail.com">jdannydesign@gmail.com</a></div>
   <div style="width:44px;height:44px;padding:0"><img src="JDSorangetypelogo.jpg" alt="JDS Logo" style="width:100%;height:100%;object-fit:contain;border-radius:50%"/></div>
 </footer>
+
+<script>
+/* Mobile nav dropdown toggle */
+(function(){
+  const toggle = document.querySelector('.nav-toggle');
+  const dropdown = document.querySelector('.nav-dropdown');
+  if(!toggle || !dropdown) return;
+  toggle.addEventListener('click', () => {
+    const isOpen = toggle.classList.toggle('open');
+    dropdown.classList.toggle('open', isOpen);
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+  dropdown.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      toggle.classList.remove('open');
+      dropdown.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+</script>
 
 <script>
 (function(){

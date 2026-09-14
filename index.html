@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="icon" type="image/jpeg" href="JDSorangetypelogo.jpg">
 <link rel="apple-touch-icon" href="JDSorangetypelogo.jpg">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -72,7 +72,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   background:#15161A;
 }
 #wave-canvas{display:none}
-.hero-content{position:relative;z-index:2;padding:160px 40px 64px;max-width:1400px;width:100%;margin:0 auto}
+.hero-content{position:relative;z-index:2;padding:160px 40px 88px;max-width:1400px;width:100%;margin:0 auto}
 .hero-masthead-rule{display:none}
 .cta{background:#FABE3A;color:#15161A}
 .cta:hover{background:#F3ECDC}
@@ -108,18 +108,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .hero-h{
   font-family:var(--sans);
   font-weight:800;
-  font-size:clamp(56px,12vw,168px);
-  line-height:.84;
-  letter-spacing:-.045em;
+  font-size:clamp(40px,8.5vw,116px);
+  line-height:1.08;
+  letter-spacing:-.015em;
   text-transform:uppercase;
   color:#F3ECDC;
-  margin-bottom:0;
+  margin-bottom:36px;
   display:flex;flex-direction:column;gap:0;
 }
 .hero-h em{font-style:normal;color:#FABE3A}
 .pop-line{
   display:block;
-  padding-bottom:0;
+  padding-bottom:.06em;
   opacity:0;
   transform:scale(1.8);
   transform-origin:left center;
@@ -128,6 +128,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .pop-line:nth-child(1){animation-delay:.3s;}
 .pop-line:nth-child(2){animation-delay:1.1s;}
 .pop-line:nth-child(3){animation-delay:1.9s;}
+.pop-line:nth-child(4){animation-delay:2.7s;}
+.pop-line:nth-child(5){animation-delay:3.5s;}
+.pop-line.pop-line-indent{text-align:left;padding-left:2.15em}
 @keyframes heroPop{
   0%{opacity:0;transform:scale(1.8);}
   55%{opacity:1;transform:scale(.95);}
@@ -144,8 +147,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   width:100%;overflow:hidden;
   border-radius:0;
   background:#F3ECDC;
-  margin:44px 0 0;
-  opacity:0;animation:fadeIn .6s ease forwards 3.9s;
+  margin:72px 0 0;
+  opacity:0;animation:fadeIn .6s ease forwards 5.5s;
 }
 .skills-track{
   display:flex;width:max-content;
@@ -162,8 +165,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .hero-bottom{
   display:flex;align-items:flex-end;justify-content:space-between;gap:40px;
-  margin-top:22px;
-  opacity:0;animation:fadeUp .8s ease forwards 4.05s;
+  margin-top:40px;
+  opacity:0;animation:fadeUp .8s ease forwards 5.65s;
 }
 .hero-s{
   font-size:13px;font-weight:600;letter-spacing:.02em;
@@ -258,12 +261,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 
 .pwork-heading{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:56px;gap:24px}
 .pwork-headline{
-  font-family:var(--serif);
+  font-family:var(--sans);
   font-size:clamp(36px,6vw,72px);
-  letter-spacing:-.02em;
-  line-height:1;
+  letter-spacing:-.03em;
+  line-height:.95;
   color:var(--black);
-  font-weight:400;
+  font-weight:800;
+  text-transform:uppercase;
   margin:0;
 }
 .pwork-years{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--g500);white-space:nowrap}
@@ -297,13 +301,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 }
 .pwork-year{font-size:12px;color:var(--g500);letter-spacing:.04em}
 .pwork-title{
-  font-family:var(--serif);
+  font-family:var(--sans);
   font-size:clamp(24px,2.8vw,40px);
   letter-spacing:-.02em;
   line-height:1.08;
   color:var(--black);
   margin-bottom:16px;
-  font-weight:400;
+  font-weight:800;
+  text-transform:uppercase;
 }
 .pwork-desc{
   font-size:15px;font-weight:300;
@@ -354,9 +359,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   position:absolute;
   bottom:20px;
   z-index:3;
-  font-family:var(--serif);
+  font-family:var(--sans);
+  font-weight:800;
   font-size:clamp(32px,4vw,56px);
-  font-style:italic;
   color:rgba(255,255,255,.7);
   line-height:1;
   pointer-events:none;
@@ -548,9 +553,11 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
       </div>
     </div>
     <h1 class="hero-h">
-      <span class="pop-line">I design with</span>
-      <span class="pop-line"><em>intention.</em> I see</span>
-      <span class="pop-line">it through.</span>
+      <span class="pop-line">Every design is</span>
+      <span class="pop-line">inten-</span>
+      <span class="pop-line pop-line-indent">tional.</span>
+      <span class="pop-line">I see it</span>
+      <span class="pop-line">through.</span>
     </h1>
     <div class="skills-marquee">
       <div class="skills-track">

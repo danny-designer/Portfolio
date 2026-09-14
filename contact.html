@@ -9,7 +9,7 @@
 <link rel="apple-touch-icon" href="JDSorangetypelogo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -73,7 +73,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .hero-text{padding:44px 40px 52px;border-bottom:1px solid var(--g100);display:grid;grid-template-columns:1fr 300px;gap:56px;align-items:start}
 .eyebrow{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g500);margin-bottom:14px}
 .eyebrow-light{color:var(--g500)}
-.case-title{font-family:var(--serif);font-size:clamp(34px,4.5vw,54px);letter-spacing:-.02em;line-height:1.05;margin-bottom:18px}
+.case-title{font-family:var(--sans);font-weight:800;text-transform:uppercase;font-size:clamp(34px,4.5vw,54px);letter-spacing:-.03em;line-height:.95;margin-bottom:18px}
 .case-title-light{color:var(--white)}
 .case-sub{font-size:18px;font-weight:300;color:var(--g700);line-height:1.75}
 .case-sub-light{color:var(--g300)}
@@ -86,7 +86,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .body{max-width:940px;margin:0 auto;padding:68px 40px}
 .block{margin-bottom:72px}
 .blabel{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g500);margin-bottom:14px}
-.btitle{font-family:var(--serif);font-size:27px;letter-spacing:-.01em;margin-bottom:18px}
+.btitle{font-family:var(--sans);font-weight:800;text-transform:uppercase;font-size:27px;letter-spacing:-.01em;line-height:1.2;margin-bottom:18px}
 .btext{font-size:16px;font-weight:300;color:var(--g700);line-height:1.8}
 .btext p{margin-bottom:14px}
 .btext p:last-child{margin-bottom:0}
@@ -120,9 +120,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .card-dark{background:var(--black)}
 .card-dark h4{color:var(--white)}
 .card-dark p{color:var(--g300)}
-.stat-n{font-family:var(--serif);font-size:44px;letter-spacing:-.03em;margin-bottom:8px}
-.insight-n{font-family:var(--serif);font-size:30px;color:var(--g300);margin-bottom:10px}
-.oc-n{font-family:var(--serif);font-size:36px;letter-spacing:-.02em;margin-bottom:8px}
+.stat-n{font-family:var(--sans);font-weight:800;letter-spacing:-.03em;margin-bottom:8px}
+.insight-n{font-family:var(--sans);font-weight:800;color:var(--g300);margin-bottom:10px}
+.oc-n{font-family:var(--sans);font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
 
 /* QUOTE */
 .quote{border-left:2px solid var(--black);padding:26px 32px;margin:40px 0;background:var(--white)}
@@ -131,7 +131,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 
 /* AWARD */
 .award{display:inline-flex;align-items:center;gap:10px;background:var(--black);color:var(--white);padding:11px 18px;margin-top:22px}
-.award .yr{font-family:var(--serif);font-size:17px}
+.award .yr{font-family:var(--sans);font-weight:800;font-size:17px}
 .award .lbl{font-size:12px;font-weight:500;letter-spacing:.04em}
 
 /* HR */
@@ -153,7 +153,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 /* INDEX SPECIFICS */
 .hero-home{padding:152px 40px 76px;max-width:880px}
 .hero-ey{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g500);margin-bottom:22px}
-.hero-h{font-family:var(--serif);font-size:clamp(30px,4.8vw,52px);line-height:1.1;letter-spacing:-.02em;margin-bottom:28px}
+.hero-h{font-family:var(--sans);font-weight:800;text-transform:uppercase;font-size:clamp(30px,4.8vw,52px);line-height:1;letter-spacing:-.03em;margin-bottom:28px}
 .hero-h em{font-style:italic;color:var(--g500)}
 .hero-s{font-size:17px;font-weight:300;color:var(--g700);max-width:540px;line-height:1.75;margin-bottom:36px}
 .cta{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--black);text-decoration:none;border-bottom:1px solid var(--black);padding-bottom:2px;transition:opacity .2s}
@@ -176,7 +176,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 .pyear{font-size:11px;color:var(--g500)}
 .ptags{display:flex;gap:4px}
 .tag{font-size:10px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;padding:3px 7px;border:1px solid var(--g300);color:var(--g500);border-radius:2px}
-.ptitle{font-family:var(--serif);font-size:19px;letter-spacing:-.01em;line-height:1.2;margin-bottom:7px}
+.ptitle{font-family:var(--sans);font-weight:800;text-transform:uppercase;font-size:19px;letter-spacing:-.01em;line-height:1.2;margin-bottom:7px}
 .pdesc{font-size:14px;font-weight:300;color:var(--g700);line-height:1.6;flex:1}
 .plink{margin-top:18px;font-size:12px;font-weight:500;color:var(--g500);display:flex;align-items:center;gap:5px;transition:color .2s}
 .pcard:hover .plink{color:var(--black)}
@@ -202,7 +202,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 .contact-sec{padding:60px 40px;display:grid;grid-template-columns:280px 1fr;gap:80px;align-items:start}
 .contact-lbl{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--g500);margin-bottom:10px}
 .contact-email{font-size:13px;color:var(--black);font-weight:400}
-.form-title{font-family:var(--serif);font-size:26px;letter-spacing:-.01em;margin-bottom:8px}
+.form-title{font-family:var(--sans);font-weight:800;text-transform:uppercase;font-size:26px;letter-spacing:-.01em;margin-bottom:8px}
 .form-sub{font-size:15px;font-weight:300;color:var(--g700);margin-bottom:32px;line-height:1.6}
 .field{margin-bottom:18px}
 .field label{display:block;font-size:12px;font-weight:500;color:var(--g700);margin-bottom:7px;letter-spacing:.02em}
@@ -264,7 +264,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 <section style="padding:72px 40px 80px;max-width:680px">
   <div style="margin-bottom:40px">
     <p class="contact-lbl" style="margin-bottom:12px">Email</p>
-    <a href="mailto:jdannydesign@gmail.com" style="font-family:var(--serif);font-size:clamp(22px,3vw,32px);color:var(--black);text-decoration:none;border-bottom:2px solid var(--black);padding-bottom:3px;letter-spacing:-.01em;transition:opacity .2s" onmouseover="this.style.opacity='.5'" onmouseout="this.style.opacity='1'">jdannydesign@gmail.com</a>
+    <a href="mailto:jdannydesign@gmail.com" style="font-family:var(--sans);font-weight:800;font-size:clamp(22px,3vw,32px);color:var(--black);text-decoration:none;border-bottom:2px solid var(--black);padding-bottom:3px;letter-spacing:-.01em;transition:opacity .2s" onmouseover="this.style.opacity='.5'" onmouseout="this.style.opacity='1'">jdannydesign@gmail.com</a>
   </div>
   <div style="display:flex;gap:56px;margin-top:48px;border-top:1px solid var(--g100);padding-top:40px">
     <div>

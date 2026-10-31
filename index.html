@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="icon" type="image/jpeg" href="JDSorangetypelogo.jpg">
 <link rel="apple-touch-icon" href="JDSorangetypelogo.jpg">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -514,9 +514,99 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   .nav-toggle{display:flex}
   .scroll-cue{right:22px}
 }
+
+/* ============ INTRO LOADER (adapted from monolith.nyc) ============ */
+.hero-content{display:flex;flex-direction:column;flex:1;padding-top:96px}
+.hero-content .hero-meta{margin-top:auto}
+.masthead{
+  display:flex;justify-content:center;align-items:center;
+  width:100%;
+  font-family:var(--sans);font-weight:800;text-transform:uppercase;
+  font-size:18vw;line-height:.8;letter-spacing:-.035em;
+  color:#F3ECDC;white-space:nowrap;
+  margin:0 0 clamp(28px,5vw,64px);
+  transform-origin:50% 50%;
+  user-select:none;
+}
+.masthead-part{display:block}
+.masthead-window{
+  display:block;position:relative;flex:none;
+  width:.26em;height:1.06em;margin:-.13em 0;
+  overflow:hidden;background:transparent;
+  transition:width .65s cubic-bezier(.76,0,.24,1),background-color .4s ease;
+}
+.masthead-window img{opacity:0;transition:opacity .3s ease}
+html.intro .masthead-window{background:#24262B}
+html.intro:not(.intro-close) .masthead-window img{opacity:1}
+.masthead-window img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+
+.intro-screen{display:none}
+html.intro .intro-screen{
+  display:block;position:fixed;inset:0;z-index:200;
+  background:#15161A;
+  transition:opacity .7s ease;
+}
+html.intro .intro-screen.fade{opacity:0}
+.intro-row{
+  position:absolute;left:0;right:0;bottom:0;
+  display:flex;justify-content:space-between;align-items:flex-end;
+  padding:0 40px 32px;
+  font-family:'DM Mono',ui-monospace,monospace;font-size:13px;font-weight:500;
+  letter-spacing:.04em;text-transform:uppercase;
+  transition:opacity .35s ease;
+}
+.intro-row.done{opacity:0}
+.intro-label{color:#8C8C88}
+.intro-count{color:#F3ECDC;font-variant-numeric:tabular-nums}
+
+/* while the intro runs: masthead sits above the overlay, everything else waits */
+html.intro{overflow:hidden}
+html.intro .hero-content{z-index:201}
+html.intro .masthead{visibility:hidden}
+html.intro.intro-ready .masthead{visibility:visible}
+html.intro .masthead-window{width:.7em}
+html.intro.intro-close .masthead-window{width:.26em;background:transparent}
+html.intro .hero-wrap *,html.intro .hero-wrap{animation-play-state:paused!important}
+html.intro nav{transform:translateY(-100%)}
+nav{transition:transform .8s cubic-bezier(.16,1,.3,1)}
+
+@media(max-width:900px){
+  .hero-content{padding-top:88px}
+  .intro-row{padding:0 22px 24px;font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  html.intro .intro-screen{display:none}
+}
+
+/* fit the whole hero in one viewport: headline scales with height as well as width */
+.hero-h{font-size:clamp(30px,min(6.5vw,7.4vh),88px);margin-bottom:12px}
+.masthead{margin-bottom:clamp(16px,3vh,48px)}
+.skills-marquee{margin-top:clamp(16px,2.5vh,36px)}
+.hero-bottom{margin-top:clamp(12px,2vh,24px)}
+.hero-content{padding-bottom:clamp(24px,4vh,56px)}
+@media(max-width:900px){.hero-content{padding-bottom:clamp(24px,4vh,56px)}.hero-s{padding-right:64px}}
 </style>
+<script>
+/* Play the intro once per browser session (add ?intro to the URL to force it). */
+(function(){
+  var force = /[?&]intro\b/.test(location.search), seen = false;
+  try{ seen = sessionStorage.getItem('ds-intro-seen') === '1'; }catch(e){}
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if((force || !seen) && !reduce){
+    document.documentElement.classList.add('intro');
+    if('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  }
+})();
+</script>
 </head>
 <body>
+
+<div class="intro-screen" id="introScreen" aria-hidden="true">
+  <div class="intro-row" id="introRow">
+    <span class="intro-label">(Loading)</span>
+    <span class="intro-count" id="introCount">00%</span>
+  </div>
+</div>
 
 <nav>
   <a href="index.html" class="nav-logo" aria-label="Daniel Sanchez — Home">
@@ -545,6 +635,9 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 <section class="hero-wrap">
   <canvas id="wave-canvas"></canvas>
   <div class="hero-content">
+    <div class="masthead" id="masthead" aria-hidden="true">
+      <span class="masthead-part">Daniel</span><span class="masthead-window" id="mastheadWindow"><img alt="" id="mastheadImg"></span><span class="masthead-part">Sanchez</span>
+    </div>
     <div class="hero-meta">
       <div class="hero-meta-left">
         <div class="hero-pulse"></div>
@@ -552,14 +645,14 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
       </div>
     </div>
     <h1 class="hero-h">
-      <span class="pop-line">Every design is</span>
-      <span class="pop-line" style="color:#FABE3A">inten-</span>
-      <span class="pop-line pop-line-indent" style="color:#FABE3A">tional.</span>
-      <span class="pop-line">I see it through.</span>
+      <span class="pop-line">I listen like</span>
+      <span class="pop-line" style="color:#FABE3A">a researcher.</span>
+      <span class="pop-line">I decide like</span>
+      <span class="pop-line" style="color:#FABE3A">a PM.</span>
     </h1>
     <div class="skills-marquee">
       <div class="skills-track">
-        <span class="skill-item">UX Design</span><span class="skill-item">UX Research</span><span class="skill-item">Product Management</span><span class="skill-item">Creative Direction</span><span class="skill-item">Service Design</span><span class="skill-item">Prototyping</span><span class="skill-item">Branding</span><span class="skill-item">Photography</span><span class="skill-item">Experience Design</span><span class="skill-item">UX Design</span><span class="skill-item">UX Research</span><span class="skill-item">Product Management</span><span class="skill-item">Creative Direction</span><span class="skill-item">Service Design</span><span class="skill-item">Prototyping</span><span class="skill-item">Branding</span><span class="skill-item">Photography</span><span class="skill-item">Experience Design</span>
+        <span class="skill-item">UX Design</span><span class="skill-item">UX Research</span><span class="skill-item">Product Management</span><span class="skill-item">Creative Direction</span><span class="skill-item">Service Design</span><span class="skill-item">Prototyping</span><span class="skill-item">Branding</span><span class="skill-item">Photography</span><span class="skill-item">Customer Experience</span><span class="skill-item">UX Design</span><span class="skill-item">UX Research</span><span class="skill-item">Product Management</span><span class="skill-item">Creative Direction</span><span class="skill-item">Service Design</span><span class="skill-item">Prototyping</span><span class="skill-item">Branding</span><span class="skill-item">Photography</span><span class="skill-item">Customer Experience</span>
       </div>
     </div>
     <div class="hero-bottom">
@@ -929,6 +1022,120 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
     card.addEventListener('mouseleave', () => {
       card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
     });
+  });
+})();
+</script>
+<script>
+/* Intro loader + full-bleed masthead ("DANIEL SANCHEZ").
+   1. Fit "SANCHEZ" to the hero width.
+   2. If intro is on: scale it down to the centre of the screen, flick through project images in the
+      window between SAN and CHEZ while the counter runs to 100%.
+   3. Close the window, then grow the wordmark into its place at the top of the hero. */
+(function(){
+  var root = document.documentElement;
+  var mast = document.getElementById('masthead');
+  var win = document.getElementById('mastheadWindow');
+  var winImg = document.getElementById('mastheadImg');
+  var screen = document.getElementById('introScreen');
+  var row = document.getElementById('introRow');
+  var countEl = document.getElementById('introCount');
+  if(!mast) return;
+
+  function fit(){
+    // measure text width with the window closed, then size the type to fill the column
+    var parts = mast.querySelectorAll('.masthead-part');
+    mast.style.fontSize = '100px';
+    var w = 26; /* closed window = word space (.26em at 100px) */
+    parts.forEach(function(p){ w += p.getBoundingClientRect().width; });
+    var avail = mast.clientWidth;
+    if(w > 0) mast.style.fontSize = (100 * avail / w * 0.995) + 'px';
+  }
+
+  var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+  var timeout = new Promise(function(r){ setTimeout(r, 1500); });
+
+  if(!root.classList.contains('intro')){
+    Promise.race([fontsReady, timeout]).then(fit);
+    var t; window.addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(fit, 120); });
+    return;
+  }
+
+  window.scrollTo(0, 0);
+
+  // images to flick through: everything on the page except the nav logo
+  var srcs = Array.prototype.slice.call(document.images)
+    .filter(function(i){ return i !== winImg && !i.closest('nav') && i.getAttribute('src'); })
+    .map(function(i){ return i.currentSrc || i.src; });
+  var imgIndex = 0;
+  if(srcs.length) winImg.src = srcs[0];
+  var flick = setInterval(function(){
+    if(!srcs.length) return;
+    imgIndex = (imgIndex + 1) % srcs.length;
+    winImg.src = srcs[imgIndex];
+  }, 170);
+
+  function centreTransform(){
+    var r = mast.getBoundingClientRect();
+    var vw = window.innerWidth, vh = window.innerHeight;
+    var target = Math.min(vw * (vw < 700 ? 0.86 : 0.6), 900);
+    var s = target / r.width;
+    var dy = (vh / 2) - (r.top + r.height / 2);
+    var dx = (vw / 2) - (r.left + r.width / 2);
+    return 'translate(' + dx + 'px,' + dy + 'px) scale(' + s + ')';
+  }
+
+  var start = performance.now();
+  var MIN = 2600;         // minimum time on the loader
+  var pageLoaded = document.readyState === 'complete';
+  window.addEventListener('load', function(){ pageLoaded = true; });
+
+  function ease(t){ return 1 - Math.pow(1 - t, 2.2); }
+
+  Promise.race([fontsReady, timeout]).then(function(){
+    fit();
+    mast.style.transform = centreTransform();
+    root.classList.add('intro-ready');
+    var shown = -1;
+    (function tick(now){
+      var t = Math.min(1, (now - start) / MIN);
+      var p = Math.floor(ease(t) * 100);
+      if(!pageLoaded) p = Math.min(p, 92);
+      if(p !== shown && (p - shown >= 3 || p === 100 || p < shown)){
+        shown = p;
+        countEl.textContent = (p < 10 ? '0' : '') + p + '%';
+      }
+      if(p >= 100) return finish();
+      requestAnimationFrame(tick);
+    })(performance.now());
+  });
+
+  function finish(){
+    setTimeout(function(){
+      row.classList.add('done');
+      clearInterval(flick);
+      root.classList.add('intro-close');          // window collapses, letters close up
+      setTimeout(function(){
+        mast.style.transition = 'transform 1.15s cubic-bezier(.76,0,.24,1)';
+        mast.style.transform = 'none';             // grow into the masthead slot
+        screen.classList.add('fade');
+        setTimeout(function(){
+          root.classList.remove('intro', 'intro-ready', 'intro-close'); // hero animations + nav resume
+        }, 650);
+        setTimeout(function(){
+          mast.style.transition = '';
+          screen.parentNode && screen.parentNode.removeChild(screen);
+          try{ sessionStorage.setItem('ds-intro-seen', '1'); }catch(e){}
+        }, 1250);
+      }, 700);
+    }, 260);
+  }
+
+  var rt; window.addEventListener('resize', function(){
+    clearTimeout(rt);
+    rt = setTimeout(function(){
+      fit();
+      if(root.classList.contains('intro') && !root.classList.contains('intro-close')) mast.style.transform = centreTransform();
+    }, 120);
   });
 })();
 </script>

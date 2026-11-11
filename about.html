@@ -459,10 +459,9 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
    The portrait is drawn on a canvas as a grid of tiles. Moving or dragging across it
    pushes the tiles under the pointer, pulling pieces of the photo along; they ease back. */
 .gdh{position:relative;margin-top:65px;height:calc(100vh - 65px);height:calc(100svh - 65px);min-height:520px;overflow:hidden;
-  background:#C9485C;touch-action:pan-y;cursor:crosshair}
-.gdh-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transform:scale(1.06);
-  transition:opacity 1.6s ease .1s,transform 2.4s cubic-bezier(.22,1,.36,1) .1s}
-.gdh.ready .gdh-canvas{opacity:1;transform:scale(1)}
+  background:linear-gradient(180deg,#B43E3A 0%,#DA5E5C 45%,#E16E75 100%);touch-action:pan-y;cursor:crosshair}
+.gdh-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity 1.4s ease .1s}
+.gdh.ready .gdh-canvas{opacity:1}
 .gdh-src{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 .gdh-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(201,72,92,.35) 0%,rgba(201,72,92,0) 55%)}
 .gdh-h{position:absolute;left:40px;top:50%;transform:translateY(-50%);margin:0;z-index:2;pointer-events:none;
@@ -861,15 +860,17 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
       // desktop: full-height portrait on the right; the plain wall is extended to the edges
       // by stretching the photo's edge columns, then the photo is feathered in so there is no seam
       var dh2 = sh, dw2 = iw * dh2 / (ih - crop), cx = sw * 0.72, x0 = Math.round(cx - dw2 / 2);
-      var band = Math.round(iw * 0.06);
-      sctx.drawImage(img, 0, 0, band, ih - crop, 0, 0, x0 + dw2 * 0.06, sh);
-      sctx.drawImage(img, iw - band, 0, band, ih - crop, x0 + dw2 * 0.94, 0, sw - (x0 + dw2 * 0.94), sh);
+      // extend the wall with the strip of wall right next to the figure (not the photo's outer edges,
+      // which are darker), then feather the photo in over that same strip so there is no visible frame
+      var L0 = 0.33, L1 = 0.37, R0 = 0.90, R1 = 0.94, sh2 = ih - crop;
+      sctx.drawImage(img, iw * L0, 0, iw * (L1 - L0), sh2, 0, 0, x0 + dw2 * L1, sh);
+      sctx.drawImage(img, iw * R0, 0, iw * (R1 - R0), sh2, x0 + dw2 * R0, 0, sw - (x0 + dw2 * R0), sh);
       var t = document.createElement('canvas'); t.width = Math.ceil(dw2); t.height = sh;
       var tc = t.getContext('2d');
-      tc.drawImage(img, 0, 0, iw, ih - crop, 0, 0, dw2, sh);
+      tc.drawImage(img, 0, 0, iw, sh2, 0, 0, dw2, sh);
       var g = tc.createLinearGradient(0, 0, dw2, 0);
-      g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(0.28, 'rgba(0,0,0,1)');
-      g.addColorStop(0.86, 'rgba(0,0,0,1)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      g.addColorStop(L0, 'rgba(0,0,0,0)'); g.addColorStop(L1 + 0.04, 'rgba(0,0,0,1)');
+      g.addColorStop(R0 - 0.02, 'rgba(0,0,0,1)'); g.addColorStop(R1, 'rgba(0,0,0,0)');
       tc.globalCompositeOperation = 'destination-in'; tc.fillStyle = g; tc.fillRect(0, 0, dw2, sh);
       sctx.drawImage(t, x0, 0);
     }

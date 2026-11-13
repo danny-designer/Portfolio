@@ -564,12 +564,12 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
     mask-image:linear-gradient(180deg,#000 0%,#000 45%,rgba(0,0,0,.5) 72%,transparent 100%)}
   .about-sec--bio .about-bio{margin-top:-80px;padding:0 24px 32px}
 }
-.bio-more{display:inline-flex;align-items:center;gap:12px;margin-top:30px;padding:12px 18px;border:1px solid rgba(243,236,220,.25);border-radius:40px;
-  font-family:'DM Mono',ui-monospace,monospace;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#F3ECDC;text-decoration:none;
-  transition:border-color .25s ease,background .25s ease}
-.bio-more svg{width:18px;height:18px;fill:none;stroke:#FABE3A;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;animation:bioNudge 1.6s ease-in-out infinite}
-.bio-more:hover{border-color:#FABE3A;background:rgba(250,190,58,.08)}
-@keyframes bioNudge{0%,100%{transform:translateY(-2px)}50%{transform:translateY(4px)}}
+.bio-more{position:absolute;left:50%;bottom:22px;z-index:2;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;
+  font-family:'DM Mono',ui-monospace,monospace;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#F3ECDC;text-decoration:none}
+.bio-more svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;animation:spotNudge 1.6s ease-in-out infinite}
+.bio-more:hover{color:#C8C8C4}
+.about-sec--bio .about-bio{padding-bottom:104px}
+@media(max-width:900px){.about-sec--bio .about-bio{padding-bottom:96px}}
 @media(prefers-reduced-motion:reduce){.bio-more svg{animation:none}}
 </style>
 </head>
@@ -627,7 +627,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
     <p>Research that stops at the report doesn't interest me. I've built UX research practices from scratch inside organizations that never had one, and taught teams to keep asking the right questions after I'm gone. I've run cross-cultural studies, pushed through hard stakeholder conversations, and caught gaps in a client's understanding before they turned into expensive mistakes.</p>
     <p>I bring mixed-methods fluency and a product manager's habit of weighing tradeoffs. What I actually bring is curiosity about people and an intentional insistence that their voices show up in what gets built.</p>
       <a class="bio-more" href="#analogStart" aria-label="Keep scrolling to Analog Observations">
-      <span>Keep scrolling</span>
+      <span>Scroll</span>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M6 13l6 6 6-6"/></svg>
     </a>
   </div>

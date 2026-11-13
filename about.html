@@ -616,6 +616,24 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 @media(max-width:900px){.svc-more{bottom:18px}}
 /* center the bio scroll cue on the card (and page), lined up with the hero's */
 @media(min-width:901px){.about-sec--bio .about-bio>.bio-more{left:27.54%}}
+
+/* ============ STAR OPENS THE ANALOG SECTION ============ */
+.analog-dark-wrap{position:relative;z-index:20;background:transparent;margin-top:-100vh;pointer-events:none}
+.analog-dark-wrap .spot-stage{pointer-events:auto}
+.spot{background:linear-gradient(180deg,transparent 0,transparent 100vh,#111110 100vh)}
+.spot-anchor{position:absolute;top:100vh;left:0;width:1px;height:1px;scroll-margin-top:0}
+.spot-stage{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C53 35 65 47 100 50C65 53 53 65 50 100C47 65 35 53 0 50C35 47 47 35 50 0Z'/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C53 35 65 47 100 50C65 53 53 65 50 100C47 65 35 53 0 50C35 47 47 35 50 0Z'/%3E%3C/svg%3E");
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:50% 50%;mask-position:50% 50%;
+  -webkit-mask-size:0px 0px;mask-size:0px 0px}
+.spot-reveal{-webkit-mask-image:none!important;mask-image:none!important;opacity:0}
+@media(prefers-reduced-motion:reduce){
+  .analog-dark-wrap{margin-top:0;pointer-events:auto}
+  .spot-stage{-webkit-mask-image:none;mask-image:none}
+  .spot-reveal{opacity:1}
+}
+.spot-cue{bottom:24px;z-index:6;opacity:0;pointer-events:none;transition:opacity .25s ease}
+@media(max-width:900px){.spot-cue{bottom:52px}}
+@media(prefers-reduced-motion:reduce){.spot-cue{display:none}}
 </style>
 </head>
 <body>
@@ -739,10 +757,9 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 
 
 <div class="analog-dark-wrap">
-<div class="slabel" id="analogStart" style="padding:60px 40px 0;margin-bottom:0;scroll-margin-top:65px">Analog Observations<span>Film Photography</span></div>
-<section class="spot" id="spot">
+<section class="spot" id="spot" data-anchor="analogStart"><span id="analogStart" class="spot-anchor"></span>
   <div class="spot-stage">
-    <div class="spot-corner tl">(Field notes)</div>
+    <div class="spot-corner tl">(Analog observations)</div>
     <div class="spot-corner tr">35mm / 12 or 36 frames</div>
     <div class="spot-corner bl">Seattle / Porto / Paris / New York / Amsterdam / Santa Cruz</div>
     <div class="spot-corner br">Shot on film</div>
@@ -780,6 +797,10 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
         <figcaption>Tower 5 <span>/ Santa Cruz</span></figcaption>
       </figure>
     </div>
+    <a class="bio-more spot-cue" id="spotCue" href="#spot" aria-label="Scroll to see the photos">
+      <span>Scroll</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M6 13l6 6 6-6"/></svg>
+    </a>
     <h2 class="spot-head">No room for<br>passive shooting.</h2>
     <div class="spot-reveal" id="spotReveal">
       <div class="spot-text">
@@ -898,7 +919,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
         const r = endEl.getBoundingClientRect();
         notPastEnd = r.top > vh * 0.5;   // stays until the next section (Analog Observations) reaches mid-screen
       }
-      wrap.classList.toggle('revealed', started && notPastEnd);
+      wrap.classList.toggle('revealed', started);
     }
     function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(update); } }
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -955,6 +976,8 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   var cells = Array.prototype.slice.call(spot.querySelectorAll('.spot-cell'));
   var reveal = document.getElementById('spotReveal');
   var stage = spot.querySelector('.spot-stage');
+  var cue = document.getElementById('spotCue');
+  cue.addEventListener('click', function(e){ e.preventDefault(); var run = spot.offsetHeight - window.innerHeight; window.scrollTo({top: spot.getBoundingClientRect().top + window.scrollY + run * 0.42, behavior: 'smooth'}); });
   var ticking = false;
   function clamp(v){ return Math.max(0, Math.min(1, v)); }
   function update(){
@@ -962,21 +985,31 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
     var r = spot.getBoundingClientRect(), vh = window.innerHeight;
     var p = clamp(-r.top / Math.max(1, spot.offsetHeight - vh));
     // photos drift up behind the headline
-    var drift = clamp(p / 0.66);
+    var drift = clamp((p - 0.18) / 0.46);
     for(var i = 0; i < cells.length; i++){
       var s = parseFloat(cells[i].style.getPropertyValue('--s')) || 1;
-      cells[i].style.transform = 'translateY(' + ((0.15 - drift * 1.75 * s) * vh).toFixed(1) + 'px)';
+      // the first two photos peek up under the headline when the star opens; the rest start below the screen
+      var y0 = parseFloat(cells[i].style.getPropertyValue('--y')) / 100;
+      var start = i === 0 ? (0.76 - y0) : i === 1 ? (0.82 - y0) : 1.05;
+      cells[i].style.transform = 'translateY(' + ((start - drift * 2.6 * s) * vh).toFixed(1) + 'px)';
     }
-    // the star opens and grows until it covers the screen
-    var m = clamp((p - 0.5) / 0.32);
+    // the star opens the whole analog stage over the end of the Core Competencies section
     var diag = Math.sqrt(window.innerWidth * window.innerWidth + vh * vh);
-    var size = Math.pow(m, 2.4) * diag * 9;
-    reveal.style.webkitMaskSize = reveal.style.maskSize = size + 'px ' + size + 'px';
+    var open = clamp((p + 0.0) / 0.16);
+    var size = Math.pow(open, 2.4) * diag * 9;
+    if(open >= 1){ stage.style.webkitMaskImage = stage.style.maskImage = 'none'; }
+    else { stage.style.webkitMaskImage = stage.style.maskImage = ''; stage.style.webkitMaskSize = stage.style.maskSize = size + 'px ' + size + 'px'; }
+    // scroll cue shows once the star has opened onto the headline, and leaves as the photos arrive
+    cue.style.opacity = open >= 1 ? Math.max(0, 1 - drift * 6) : 0;
+    cue.style.pointerEvents = (open >= 1 && drift < 0.15) ? 'auto' : 'none';
+    // text panel fades in (no star), then the words light up
+    var m = clamp((p - 0.62) / 0.1);
+    reveal.style.opacity = m;
     reveal.classList.toggle('full', m >= 1);
     stage.classList.toggle('is-full', m >= 1);
     var words = window.__spotWords;
     if(words){
-      var lit = Math.round(clamp((p - 0.84) / 0.13) * words.length);
+      var lit = Math.round(clamp((p - 0.74) / 0.22) * words.length);
       for(var w = 0; w < words.length; w++) words[w].classList.toggle('lit', w < lit);
     }
   }

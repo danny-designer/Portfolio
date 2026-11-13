@@ -419,11 +419,11 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
 .spot-more:hover{color:#3D3D3A}
 
 /* reveal panel: the camera paragraph instead of a photo */
-.spot-reveal{background:var(--off)}
+.spot-reveal{background:#111110}
 .spot-text{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(860px,calc(100% - 80px))}
-.spot-text .analog-quote{font-family:var(--sans);font-weight:500;font-size:clamp(20px,2.5vw,34px);line-height:1.45;letter-spacing:-.01em;color:#15161A;margin:0}
+.spot-text .analog-quote{font-family:var(--sans);font-weight:500;font-size:clamp(20px,2.5vw,34px);line-height:1.45;letter-spacing:-.01em;color:#F3ECDC;margin:0}
 .spot-text .analog-pull{margin-top:40px}
-.spot-text .analog-pull p{color:#3D3D3A;font-size:16px}
+.spot-text .analog-pull p{color:#C8C8C4;font-size:16px}
 .spot-text .analog-pull span{color:#8C8C88}
 @media(max-width:900px){
   .spot-text{width:calc(100% - 44px);top:47%}
@@ -977,6 +977,7 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
   var reveal = document.getElementById('spotReveal');
   var stage = spot.querySelector('.spot-stage');
   var cue = document.getElementById('spotCue');
+  var head = spot.querySelector('.spot-head');
   cue.addEventListener('click', function(e){ e.preventDefault(); var run = spot.offsetHeight - window.innerHeight; window.scrollTo({top: spot.getBoundingClientRect().top + window.scrollY + run * 0.42, behavior: 'smooth'}); });
   var ticking = false;
   function clamp(v){ return Math.max(0, Math.min(1, v)); }
@@ -1003,13 +1004,14 @@ footer{border-top:1px solid var(--g100);padding:28px 40px;display:flex;justify-c
     cue.style.opacity = open >= 1 ? Math.max(0, 1 - drift * 6) : 0;
     cue.style.pointerEvents = (open >= 1 && drift < 0.15) ? 'auto' : 'none';
     // text panel fades in (no star), then the words light up
-    var m = clamp((p - 0.62) / 0.1);
+    // headline fades out first, then the paragraph fades in on the same black
+    head.style.opacity = 1 - clamp((p - 0.44) / 0.08);
+    var m = clamp((p - 0.5) / 0.08);
     reveal.style.opacity = m;
     reveal.classList.toggle('full', m >= 1);
-    stage.classList.toggle('is-full', m >= 1);
     var words = window.__spotWords;
     if(words){
-      var lit = Math.round(clamp((p - 0.74) / 0.22) * words.length);
+      var lit = Math.round(clamp((p - 0.57) / 0.33) * words.length);
       for(var w = 0; w < words.length; w++) words[w].classList.toggle('lit', w < lit);
     }
   }
